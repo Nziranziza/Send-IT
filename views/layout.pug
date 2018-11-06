@@ -1,0 +1,30 @@
+doctype html
+html
+   head
+      meta(charset='utf-8')
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+      meta(name='description', content='A fast and reliable courier service')
+      meta(name='viewport', content='width=device-width, initial-scale=1')
+      meta(meta name="author" content="Daniel Nziranziza")
+      meta(name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT")
+      title= title
+      link(rel='stylesheet', href='/stylesheets/style.css')
+   body
+      block header
+       header
+        div(class="container")
+         div(id="brand")
+          a(href="/") #[img(src="img/send.png" alt="slogo" id="logo")] #[label(class="top-label") SendIT]
+         nav
+          ul
+           li #[a(href="/") #[b HOME]]
+           li #[a(href="/") #[b LOGIN]]
+           li #[a(href="/") #[b CONTACT US]]
+           li #[a(href="/") #[b ABOUT US]]
+         block welcome
+      block content
+    
+      footer
+        hr
+        p &copy SendIT 2018. #[a(href='#' id='footer-link') Terms] #[a(href='#') Privacy]
+  

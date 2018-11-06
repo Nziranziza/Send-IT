@@ -1,0 +1,442 @@
+/*Default Style 
+__________________________________________________________*/
+html{
+    font-family: Arial, Helvetica, sans-serif;  
+}
+
+body{
+    background-color: aliceblue;
+    line-height: 1.5;
+    margin: 0px;
+    font-size: 15px;
+    color: #777;
+}
+
+
+/*Global Style
+______________________________________________________*/
+a{
+   text-decoration: none;
+}
+/*designing a button*/
+.button{
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+}
+/*Designing a badge*/
+.badge{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+    color: #5cb85c;
+    background-color: #fff;
+  }
+/*This should take full width*/
+.full-width{
+    width:100%;
+    overflow: auto;
+}
+/*Center alignment*/
+.to-center{
+    text-align: center;
+}
+.container{
+    margin: auto;
+    width: 80%;
+    overflow: hidden;
+}
+/*Set width of the icon used*/
+.icon{
+    width:20%;
+}
+/*put an image in the center*/
+.img-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*enclose the content in the box*/
+.box{
+    margin-top: 1rem;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    background-color:#fff;
+    border-radius: 0.3rem;
+    border:1px solid #d8dee2
+  }
+/*remove dots and padding for ul*/
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.label{
+    border: 1px solid rgb(158, 148, 148);
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    border-radius:2px;
+    color:white;
+    margin-right:5px; 
+}
+.del{
+    background-color: #d9534f;
+    color:white
+}
+.success{
+    background-color:#5cb85c;
+    color:white
+}
+.default{
+    background-color:#333;
+    color:white
+}
+.primary{
+ background-color:#337ab7;
+ color:white
+}
+.fixed-top{
+    position:fixed;
+    top:0;
+    width:100%;
+    overflow: hidden;
+}
+.fixed{
+    position:fixed;
+}
+.right{
+    float:right;
+    border:none;
+    background-color: inherit;
+    margin-top: -10px;
+}
+.button-danger{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+.block{
+      display: flex;
+}
+input{
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+
+
+/*Home page style
+______________________________________________________________________*/
+.home-navbar{
+    background-color:transparent 
+}
+#bg-img a{
+  color: #111;
+}
+#bg-img #btn-start:hover{
+    color:white
+}
+#bg-img a:hover{
+    color: aqua
+}
+.top-label{
+    font-size: 50px;
+}
+#logo{
+    width:50px;
+}
+#btn-start{
+    background-color:aqua;
+}
+#bg-img h1{
+ margin-top: 100px;
+ font-size: 55px;
+ margin-bottom: 10px;
+}
+/*Home page header background image*/
+#bg-img {
+    /* The image used */
+    background-image: url("../img/header_bg.jpg");
+    min-height: 500px;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    /* Needed to position the navbar */
+    position: relative;
+  }
+.rectangle-3{
+    float:left;
+    width:30%;
+    padding: 10px;
+    text-align: center
+}
+.square-3{
+    float:left;
+    width:30%;
+    padding: 10px;
+    text-align: center
+}
+.square-2-3{
+    float:left;
+    width:60%;
+    padding: 10px;
+}
+.rectangle-2-3{
+    float:left;
+    width:60%;
+    padding: 10px;
+    text-align: center
+}
+#home-section{
+    background-color: #d8dee2
+}
+
+/*Header style
+______________________________________________________________________*/
+header nav{
+    margin-bottom: 0px;
+    margin-top:30px;
+    float:right
+}
+header a{
+    color: white
+}
+header{
+    background-color:#333;
+    min-height: 70px;
+    border-bottom: #2376be 3px solid;
+}
+header li{
+    float: left; 
+}
+header nav li a{
+    display: block;
+    color:white;
+    text-align: center;
+    text-decoration: none;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+#brand{
+    float:left;
+    color:white
+
+}
+header a:hover {
+    color: aquamarine
+}
+/*Footer style
+_________________________________________________________________________*/
+footer{
+    text-align: center;
+    
+}
+#footer-link{
+    padding-right:10px;
+}
+
+/*Admin page style
+_____________________________________________________________________________*/
+.tadm td,.tadm th{
+    border-style: solid;
+    background-color:#999;
+    color:white;
+    border-color: darkgray;
+    margin:0px;
+    padding: 5px;
+}
+.admctr{
+    color:white;
+    height: 5rem;
+    font-size: 1.5rem;
+    display:table;
+    margin:5px;
+}
+#admin-header .admctr{
+width: 26%;
+}
+#dmin-header{
+    width:80%;
+}
+#admin-panel{
+    height: 500px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/*User Dashboard
+__________________________________________________________________________________*/
+#user-btn button,#user-btn a{
+    margin-bottom: -1.2rem;
+    border: #2376be solid;
+    border-radius: 0px
+}
+#user-btn .current{
+    border-bottom: aliceblue solid;
+    background-color: aliceblue;
+}
+#user-header{
+    text-align: center;
+    border-bottom:#2376be solid;
+}
+
+
+/*About page style
+______________________________________________________________________________*/
+#about-img {
+    background:url("./img/about.jpg") no-repeat 0px -300px ;
+    min-height:400px;
+    background-size: cover;
+    color:white;
+    text-align: center
+
+  }
+#about-img span{
+  font-size: 100px;
+  margin-top: 50px;
+}
+#about-icon{
+    width:100%;
+}
+.about-section .rectangle-2-3{
+    font-size:20px
+}
+#guitar{
+    height:500px;
+}
+#interest{
+    background-color: #d8dee2
+}
+
+/*Contact us page
+_________________________________________________________________________________*/
+#contact-section .rectangle-3,#contact-section .rectangle-2-3{
+    text-align: left;
+    margin-right: 30px;
+}
+#contact-section .rectangle-3 p{
+    margin:0
+}
+
+/*Small Devices
+_____________________________________________________________________________*/
+@media(max-width:768px){
+ header h2{
+     color:#444
+ }
+ #rectangles .rectangle-3{
+     float:none;
+     width:100%;
+ }
+ #why{
+     width:100%
+ }
+ .container{
+   width:90%;
+   padding:5px;
+ }
+ .box{
+     display: block;
+ }
+ #btn-start{
+     margin-bottom: 10px;
+ }
+header nav {
+    float: right;
+    width:100%;
+    text-align: center;
+}
+header #brand
+{   float:none;
+    width:100%;
+    text-align: center;
+}
+
+header nav li a{
+    padding-left: 13px;
+    padding-right: 13px;
+    text-align: center;
+}
+body .form{
+    width: 80%;
+}
+.form #login-title{
+    font-size: 20px;
+}
+body .rectangle-3,body .rectangle-2-3{
+    width: 98%;
+    margin:auto;
+    float: none;
+}
+.rectangle-2-3 img{
+ display: none
+}
+}
+@media(max-width:874px){
+    .rectangle-3,.rectangle-2-3{
+        width: 45%;
+    }
+    .container{
+        width: 98%;
+    }
+}
+@media(max-width:320px){
+
+}
+
+
+/*Unclassified Style
+___________________________________________________________________________*/
+#err-msg{
+    color:red
+}
+.margin-left{
+margin-left: 20px;
+}
+.ads img{
+    float:right;
+}
+
+#why ol{
+   list-style-type: square;
+   font-size: 25px;
+}
+#why{
+    background-color: rgb(171, 226, 226);
+    color:#f1827e
+}
+.form{
+    margin-top: 10px;
+    padding: 5px;
+    width:25%; 
+    margin-left:auto;
+    margin-right:auto;
+}
+.form-3{
+width:33.333333%
+}
+#login-title{
+   font-size: 2rem
+}

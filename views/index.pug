@@ -1,0 +1,86 @@
+extends layout 
+
+block header
+ header(id="bg-img")
+  div(class="container")
+       div(id="brand")
+        a(href="/") #[img(src="img/send.png" alt="slogo" id="logo")] #[label(class="top-label") SendIT]
+       nav
+        ul
+         li #[a(href="/") #[b HOME]]
+         li #[a(href="/") #[b LOGIN]]
+         li #[a(href="/") #[b CONTACT US]]
+         li #[a(href="/") #[b ABOUT US]]
+  block welcome
+   div(class="to-center")
+    h1 Welcome to #{title}
+    h2 A Fast ,Easy ,Trustworthy and Reliable courier service platform
+    a(class="button" id="btn-start" href="./UI/create-account.html" onClick="displayParcel()") Get Started Now
+block content
+   section#rectangles
+   // Stands for our services
+   .container
+      h1.to-center Our services
+      .rectangle-3
+         h3 Parcel Delivery
+         img.icon(src='img/motorcycle.png', alt='serv1')
+         p
+            b
+               | We deliver your parcel to different location with our trustworthy and reliable courier services.
+               | No matter how is your parcel we make sure we deliver it on time and without any damage
+      .rectangle-3
+         h3 Booking Parcel Delivery
+         img.icon(src='img/online-booking.png', alt='serv2')
+         p
+            b
+               | With our platform you will be able to book your parcel delivery at a better price.
+               | Choose the date you wish your parcel to be delivered at give us your place we will reach if it is time.
+      .rectangle-3
+         h3 Comparing courier quotes
+         img.icon(src='img/bar-chart.png', alt='serv3')
+         p
+            b
+               | As there are many courier services companies. With our platform you will be able to compare price from all those.
+               | Fell free to choose the one you like because we selected the most trusted companies.
+   section#home-section
+   // Stands for what we do and ads
+   .container
+      #why.box.square-2-3
+         h2.to-center Why use SendIT?
+         ol
+            li Quickest Rwanda delivery services
+            li Secure person to person delivery
+            li Perfect for urgent items
+            li Available on demand 24/7
+            li Motorbike & Van services
+      .square-3
+         img(src='img/driver.png')
+   section(class='primary')
+   .container.to-center
+      h1 How does it work with SendIT?
+   section
+   .container
+      .rectangle-3
+         img(src='img/sign-up.png')
+      .box.rectangle-2-3.default
+         h3 Create an account
+         p
+            | To get started you will need to create an acount.This account will help you to manage your parcel delivery order,it will enable you to create the parcel delivery order,to order them
+            | ,to cancel them when you no longer need to sent the parcel,to change the destination of the parcel as well as tracking the your parcel. It will also help you get notification of where your parcel is in case
+            | the location changes.
+      .rectangle-3.box.primary
+         h3 Access the dashboard
+         p
+            | The dashboard is the your working place,you will be able to create your first 3 parcel delivery order for 3.
+            | Complete the form and hit create, the parcel delivey order should be displayed in the recent parcel delivery order.
+            | Hit order to make an order for your first parcel order,Hit change destination to change the destination of your parcel delivery order,
+            | Hit cancel to cancel your parcel delivery order in case you no longer need it to be delivered.
+      .rectangle-2-3
+         img(src='img/dashboard.png')
+      .rectangle-3
+         img(src='img/pay.png')
+      .rectangle-2-3.del
+         h3 Order and Pay Online
+         p
+            | Once you hit order you will need to pay for your parcel delivery order and to pay is simple.
+            | You will need to use your smart card or mobile money. The price will be measured based on the weight of your parcel.
