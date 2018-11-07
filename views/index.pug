@@ -8,14 +8,14 @@ block header
        nav
         ul
          li #[a(href="/") #[b HOME]]
-         li #[a(href="/") #[b LOGIN]]
-         li #[a(href="/") #[b CONTACT US]]
-         li #[a(href="/") #[b ABOUT US]]
+         li #[a(href="/login") #[b LOGIN]]
+         li #[a(href="/contact-us") #[b CONTACT US]]
+         li #[a(href="/about-us") #[b ABOUT US]]
   block welcome
    div(class="to-center")
     h1 Welcome to #{title}
     h2 A Fast ,Easy ,Trustworthy and Reliable courier service platform
-    a(class="button" id="btn-start" href="./UI/create-account.html" onClick="displayParcel()") Get Started Now
+    a(class="button" id="btn-start" href="./sign-up" onClick="displayParcel()") Get Started Now
 block content
    section#rectangles
       // Stands for our services
