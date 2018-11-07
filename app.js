@@ -6,16 +6,15 @@ import logger from 'morgan';
 import path from 'path';
 import favicon from 'serve-favicon';
 
-//importing routes
+// importing routes
 import index from './routes/index';
-
 
 const app = express();
 const debug = Debug('send-it:app');
 app.set('views', path.join(__dirname, 'views'));
 // view engine setup
 app.set('view engine', 'pug');
-//uncomment after placing your favicon in /public
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,7 +26,7 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Defining routes
+// Defining routes
 app.use('/', index);
 
 // catch 404 and forward to error handler

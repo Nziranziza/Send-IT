@@ -1,16 +1,21 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb/base",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
   "env": {
     "es6": true,
     "node": true,
-    "mocha": true
+    "mocha": true,
+    "browser":true
   },
   "ecmaFeatures": {
     "classes": true,
     "modules": true
   },
   "rules": {
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "linebreak-style":0
   }
 }
