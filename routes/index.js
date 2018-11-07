@@ -46,7 +46,7 @@ router.get('/user-dashboard', (req, res) => {
 
 /* GET admin page. */
 router.get('/admin-dashboard', (req, res) => {
-  res.render('index', {
+  res.render('admin', {
     title: 'SendIT'
   });
 });
