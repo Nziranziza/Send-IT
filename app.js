@@ -8,12 +8,7 @@ import favicon from 'serve-favicon';
 
 //importing routes
 import index from './routes/index';
-import about from './routes/index';
-import admin from './routes/index';
-import contact from './routes/index';
-import login from './routes/index';
-import signup from './routes/index';
-import user from './routes/index';
+
 
 const app = express();
 const debug = Debug('send-it:app');
@@ -34,12 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Defining routes
 app.use('/', index);
-app.use('/about-us', about);
-app.use('/admin', admin);
-app.use('/contact-us', contact);
-app.use('/login', login);
-app.use('/sign-up', signup);
-app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
