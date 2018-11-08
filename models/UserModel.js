@@ -38,6 +38,15 @@ class User {
   findOne(id) {
     return this.users.find(user => user.id === id);
   }
+  /**
+   * @param {object} credentials object
+   * @returns {object} user object
+   */
+  findUser(data) {
+    return this.users.find(
+      user => user.email === data.email && user.password === data.password
+    );
+  }
 
   /**
    * @returns {object} returns all users
@@ -77,10 +86,7 @@ class User {
    *  @returns {object} user object
    */
   login(data) {
-    const activeUser = this.users.find(
-      user => user.email === data.email && user.password === data.password
-    );
-    const index = this.users.indexOf(activeUser);
+    const index = this.users.indexOf(data);
     this.users[index].isloggedin = true;
     return this.users[index];
   }

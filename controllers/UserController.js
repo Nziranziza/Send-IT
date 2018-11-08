@@ -5,7 +5,7 @@ const User = {
    *
    * @param {object} req
    * @param {object} res
-   * @returns {object} parcel object
+   * @returns {object} user object
    */
   create(req, res) {
     if (!req.body.firstname && !req.body.lastname && !req.body.email && !req.body.password) {
@@ -18,7 +18,7 @@ const User = {
    *
    * @param {object} req
    * @param {object} res
-   * @returns {object} parcels array
+   * @returns {object} users array
    */
   getAll(req, res) {
     const users = UserModel.findAll();
@@ -28,7 +28,7 @@ const User = {
    *
    * @param {object} req
    * @param {object} res
-   * @returns {object} parcel object
+   * @returns {object} user object
    */
   getOne(req, res) {
     const user = UserModel.findOne(req.params.id);
@@ -41,7 +41,7 @@ const User = {
    *
    * @param {object} req
    * @param {object} res
-   * @returns {object} updated parcel
+   * @returns {object} updated user
    */
   update(req, res) {
     const user = UserModel.findOne(req.params.id);
@@ -64,6 +64,29 @@ const User = {
     }
     const ref = UserModel.delete(req.params.id);
     return res.status(204).send(ref);
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
+  signin(req, res) {
+    const user = UserModel.findUser(req.params.data);
+    if (!user) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const activeUser = UserModel.login(user);
+    return res.status(200).send(activeUser);
+  },
+  /**
+   *
+   * @param {void}
+   * @returns {object} user object
+   *
+   */
+  signout() {
+    return UserModel.logout();
   }
 };
 
