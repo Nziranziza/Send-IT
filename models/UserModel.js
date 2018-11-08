@@ -7,7 +7,41 @@ class User {
    * @param {object} data
    */
   constructor() {
-    this.users = [];
+    this.users = [
+      {
+        id: uuid.v4(),
+        firstname: 'Daniel',
+        lastname: 'Nziranziza',
+        email: 'nziranzizadaniel@gmail.com',
+        confemail: 'nziranzizadaniel@gmail.com',
+        createdDate: moment.now(),
+        password: '123456789',
+        username: 'Daniel',
+        isloggedin: true
+      },
+      {
+        id: uuid.v4(),
+        firstname: 'Jennah',
+        lastname: 'Haque',
+        email: 'jhaque@gmail.com',
+        confemail: 'jhaque@gmail.com',
+        createdDate: moment.now(),
+        password: '123456789',
+        username: 'Jennah',
+        isloggedin: true
+      },
+      {
+        id: uuid.v4(),
+        firstname: 'Mucyo',
+        lastname: 'Elie',
+        email: 'mucyoelie@gmail.com',
+        confemail: 'mucyoelie@gmail.com',
+        createdDate: moment.now(),
+        password: '123456789',
+        username: 'Mucyo',
+        isloggedin: true
+      }
+    ];
   }
 
   /**
@@ -96,11 +130,18 @@ class User {
    * @param {void}
    * @returns {object} user object
    */
-  logout() {
-    const activeUser = this.users.find(user => user.isloggedin);
-    const index = this.users.indexOf(activeUser);
+  logout(data) {
+    const index = this.users.indexOf(data);
     this.users[index].isloggedin = false;
     return this.users[index];
+  }
+  /**
+   *
+   * @param {void}
+   * @returns {boolean}
+   */
+  isloggedin() {
+    return this.users.find(user => user.isloggedin === true);
   }
 }
 export default new User();

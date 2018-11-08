@@ -85,8 +85,13 @@ const User = {
    * @returns {object} user object
    *
    */
-  signout() {
-    return UserModel.logout();
+  signout(req, res) {
+    const activeUser = UserModel.isloggedin();
+    if (!activeUser) {
+      return res.status(404).send({ message: ' u are not logged in' });
+    }
+    const passiveUser = UserModel.logout(activeUser);
+    return res.status(200).send(passiveUser);
   }
 };
 

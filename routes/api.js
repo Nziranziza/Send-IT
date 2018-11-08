@@ -32,7 +32,7 @@ router.put('/users/:id/update-profile', userController.update);
 router.post('/users', userController.create);
 
 /* Sign in into user account */
-router.put('/users/login', userController.login);
+router.put('/users/login', userController.signin);
 
 /* Sign out user account */
 router.put('/users/logout', userController.signout);
