@@ -7,7 +7,38 @@ class Parcel {
    * @param {object} data
    */
   constructor() {
-    this.parcels = [];
+    this.parcels = [
+      {
+        id: uuid.v4(),
+        from: 'Muhanga',
+        destination: 'Kigali',
+        price: '1500',
+        createdDate: moment.now(),
+        owner: 'John Doe',
+        presentLocation: 'Muhanga',
+        weight: '10 kg'
+      },
+      {
+        id: uuid.v4(),
+        from: 'Huye',
+        destination: 'Rusizi',
+        price: '2500',
+        createdDate: moment.now(),
+        owner: 'Dany William',
+        presentLocation: 'Huye',
+        weight: '23 kg'
+      },
+      {
+        id: uuid.v4(),
+        from: 'Nyagatare',
+        destination: 'Rusizi',
+        price: '',
+        createdDate: moment.now(),
+        owner: 'Willy Smith',
+        presentLocation: 'Rusizi',
+        weight: '45 kg'
+      }
+    ];
   }
 
   /**
