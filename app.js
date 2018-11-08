@@ -8,6 +8,7 @@ import favicon from 'serve-favicon';
 
 // importing routes
 import index from './routes/index';
+import api from './routes/api';
 
 const app = express();
 const debug = Debug('send-it:app');
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Defining routes
 app.use('/', index);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
