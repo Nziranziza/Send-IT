@@ -60,7 +60,7 @@ const Parcel = {
   delete(req, res) {
     const parcel = ParcelModel.findOne(req.params.id);
     if (!parcel) {
-      return res.status(404).send({ message: 'reflection not found' });
+      return res.status(404).send({ message: 'parcel not found' });
     }
     const ref = ParcelModel.delete(req.params.id);
     return res.status(204).send(ref);
