@@ -109,6 +109,7 @@ describe('app api route', () => {
         res.body.should.have.property('presentLocation').eql('Muhanga');
         res.body.should.have.property('createdDate');
         res.body.should.have.property('weight').eql('23');
+        res.body.should.have.property('price').eql(11500);
         done();
       });
   });
@@ -127,7 +128,7 @@ describe('app api route', () => {
         done();
       });
   });
-  // Testing getting parcel delivery order
+  // Testing getting all parcel delivery order
   it('it should get all parcel', (done) => {
     chai.request(app)
       .get('/api/v1/parcels')
@@ -135,6 +136,33 @@ describe('app api route', () => {
         res.should.have.status(200);
         res.body.should.be.a('array');
         res.body.length.should.be.eql(4);
+        done();
+      });
+  });
+  // Testing getting one parcel delivery order
+  it('it should get one parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id').eql('1232-3c44-xr4-35452-4c45c4c-35c345c-ccr');
+        res.body.should.have.property('from').eql('Muhanga');
+        res.body.should.have.property('destination').eql('Kigali');
+        res.body.should.have.property('owner').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
+        res.body.should.have.property('presentLocation').eql('Muhanga');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('weight').eql('10 kg');
+        done();
+      });
+  });
+  it('it should not get parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels/1233445667788899')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
         done();
       });
   });

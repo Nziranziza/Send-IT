@@ -18,7 +18,7 @@ class Parcel {
   constructor() {
     this.parcels = [
       {
-        id: uuid.v4(),
+        id: '1232-3c44-xr4-35452-4c45c4c-35c345c-ccr',
         from: 'Muhanga',
         destination: 'Kigali',
         price: '1500',
