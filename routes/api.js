@@ -14,17 +14,10 @@ router.get('/parcels/:id', parcelController.getOne);
 router.put('/parcels/:id/cancel', parcelController.update);
 
 /* Fetch all parcel delivery orders by a specific user */
-<<<<<<< HEAD
 router.get('/users/:userId/parcels', parcelController.getAll);
 
 /* GET All Parcels */
 router.post('/parcels', parcelController.create);
-=======
-router.get('/v1/users/:id/parcels', parcelController.getAll);
-
-/* Create a parcel delivery order */
-router.post('/v1/parcels', parcelController.create);
->>>>>>> user
 
 /* Fetch all users */
 router.get('/users', userController.getAll);
