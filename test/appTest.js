@@ -26,3 +26,13 @@ describe('app index route', () => {
       });
   });
 });
+describe('app api route', () => {
+  it('it should GET all parcels', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+});

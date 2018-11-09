@@ -51,7 +51,7 @@ class User {
   create(data) {
     const newUser = {
       id: uuid.v4(),
-      firstname: data.firstname || '',
+      firstname: data.firstname,
       lastname: data.lastname || '',
       email: data.email || '',
       confemail: data.confemail || '',

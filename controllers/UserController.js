@@ -72,7 +72,7 @@ const User = {
    * @returns {object} user object
    */
   signin(req, res) {
-    const user = UserModel.findUser(req.params.data);
+    const user = UserModel.findUser(req.body);
     if (!user) {
       return res.status(404).send({ message: 'user not found' });
     }
