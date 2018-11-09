@@ -89,4 +89,42 @@ describe('app api route', () => {
         done();
       });
   });
+  // Testing create parcel endpoint
+  it('it should create parcel', (done) => {
+    const data = {
+      from: 'Muhanga',
+      destination: 'Kigali',
+      weight: '23'
+    };
+    chai.request(app)
+      .post('/api/v1/parcels')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('from').eql('Muhanga');
+        res.body.should.have.property('destination').eql('Kigali');
+        res.body.should.have.property('owner');
+        res.body.should.have.property('presentLocation').eql('Muhanga');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('weight').eql('23');
+        done();
+      });
+  });
+  it('it should not create parcel', (done) => {
+    const data = {
+      from: 'Muhanga',
+      destination: 'Kigali'
+    };
+    chai.request(app)
+      .post('/api/v1/parcels')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('All fields are required');
+        done();
+      });
+  });
 });

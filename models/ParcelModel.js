@@ -54,14 +54,14 @@ class Parcel {
    *
    * @returns {object} parcel object
    */
-  create(data, userId) {
+  create(data) {
     const newParcel = {
       id: uuid.v4(),
       from: data.from,
       destination: data.destination,
       price: calculatePrice(data.weight),
       createdDate: moment.now(),
-      owner: userId,
+      owner: uuid.v4(),
       presentLocation: data.from,
       weight: data.weight || ''
     };

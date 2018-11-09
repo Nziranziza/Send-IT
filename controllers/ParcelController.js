@@ -8,10 +8,10 @@ const Parcel = {
    * @returns {object} parcel object
    */
   create(req, res) {
-    if (!req.body.from && !req.body.destination && !req.body.weight) {
+    if (!req.body.from || !req.body.destination || !req.body.weight) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const parcel = ParcelModel.create(req.body, req.params.userId);
+    const parcel = ParcelModel.create(req.body);
     return res.status(201).send(parcel);
   },
   /**

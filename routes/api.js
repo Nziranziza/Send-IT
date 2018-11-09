@@ -17,7 +17,7 @@ router.put('/parcels/:id/cancel', parcelController.update);
 router.get('/users/:userId/parcels', parcelController.getAll);
 
 /* Create a parcel delivery order */
-router.post('/users/:userId/parcels', parcelController.create);
+router.post('/parcels', parcelController.create);
 
 /* Fetch all users */
 router.get('/users', userController.getAll);
