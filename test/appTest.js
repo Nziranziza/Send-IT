@@ -127,4 +127,15 @@ describe('app api route', () => {
         done();
       });
   });
+  // Testing getting parcel delivery order
+  it('it should get all parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body.length.should.be.eql(4);
+        done();
+      });
+  });
 });
