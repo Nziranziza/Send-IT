@@ -28,7 +28,7 @@ class User {
         createdDate: moment.now(),
         password: '123456789',
         username: 'Jennah',
-        isloggedin: true
+        isloggedin: false
       },
       {
         id: uuid.v4(),
@@ -39,7 +39,7 @@ class User {
         createdDate: moment.now(),
         password: '123456789',
         username: 'Mucyo',
-        isloggedin: true
+        isloggedin: false
       }
     ];
   }
