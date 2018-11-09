@@ -9,7 +9,7 @@ class User {
   constructor() {
     this.users = [
       {
-        id: uuid.v4(),
+        id: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         firstname: 'Daniel',
         lastname: 'Nziranziza',
         email: 'nziranzizadaniel@gmail.com',

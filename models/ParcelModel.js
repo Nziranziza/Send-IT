@@ -1,6 +1,15 @@
 import moment from 'moment';
 import uuid from 'uuid';
 
+/**
+   *
+   * @param {number} weight
+   * @returns {number} price
+   */
+function calculatePrice(weight) {
+  return Number(weight) * 500;
+}
+
 class Parcel {
   /**
    * class constructor
@@ -24,7 +33,7 @@ class Parcel {
         destination: 'Rusizi',
         price: '2500',
         createdDate: moment.now(),
-        owner: 'Dany William',
+        owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Huye',
         weight: '23 kg',
       },
@@ -50,7 +59,7 @@ class Parcel {
       id: uuid.v4(),
       from: data.from,
       destination: data.destination,
-      price: data.price || '',
+      price: calculatePrice(data.weight),
       createdDate: moment.now(),
       owner: userId,
       presentLocation: data.from,
@@ -101,4 +110,5 @@ class Parcel {
     return {};
   }
 }
+
 export default new Parcel();
