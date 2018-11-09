@@ -14,9 +14,9 @@ class Parcel {
         destination: 'Kigali',
         price: '1500',
         createdDate: moment.now(),
-        owner: 'John Doe',
+        owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Muhanga',
-        weight: '10 kg'
+        weight: '10 kg',
       },
       {
         id: uuid.v4(),
@@ -26,17 +26,17 @@ class Parcel {
         createdDate: moment.now(),
         owner: 'Dany William',
         presentLocation: 'Huye',
-        weight: '23 kg'
+        weight: '23 kg',
       },
       {
         id: uuid.v4(),
         from: 'Nyagatare',
         destination: 'Rusizi',
-        price: '',
+        price: '3500',
         createdDate: moment.now(),
-        owner: 'Willy Smith',
+        owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Rusizi',
-        weight: '45 kg'
+        weight: '45 kg',
       }
     ];
   }
@@ -45,14 +45,14 @@ class Parcel {
    *
    * @returns {object} parcel object
    */
-  create(data) {
+  create(data, userId) {
     const newParcel = {
       id: uuid.v4(),
-      from: data.from || '',
-      destination: data.destination || '',
+      from: data.from,
+      destination: data.destination,
       price: data.price || '',
       createdDate: moment.now(),
-      owner: '',
+      owner: userId,
       presentLocation: data.from,
       weight: data.weight || ''
     };

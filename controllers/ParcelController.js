@@ -11,7 +11,7 @@ const Parcel = {
     if (!req.body.from && !req.body.destination && !req.body.weight) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const parcel = ParcelModel.create(req.body);
+    const parcel = ParcelModel.create(req.body, req.params.userId);
     return res.status(201).send(parcel);
   },
   /**
