@@ -67,7 +67,7 @@ const Parcel = {
   },
   /**
    *
-   * @param {array} req
+   * @param {uuid} req
    * @returns {object} res
    */
   getAllForUser(req, res) {
@@ -76,6 +76,19 @@ const Parcel = {
       return res.status(404).send({ message: 'parcels not found' });
     }
     return res.status(200).send(parcels);
+  },
+  /**
+   *
+   *  @param {uuid} req
+   *  @param {object} res
+   *  @returns {object} status code
+   */
+  cancel(req, res) {
+    const parcel = ParcelModel.cancel(req.params.id);
+    if (!parcel) {
+      return res.status(404).send({ message: 'parcel not found' });
+    }
+    return res.status(200).send(parcel);
   }
 };
 

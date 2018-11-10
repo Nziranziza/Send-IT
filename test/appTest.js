@@ -187,4 +187,25 @@ describe('app api route', () => {
         done();
       });
   });
+  // Testing for cancelling parcels delivery order
+  it('it should cancel parcel delivery order', (done) => {
+    chai.request(app)
+      .put('/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr/cancel')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('status').eql('canceled');
+        done();
+      });
+  });
+  it('it should not cancel parcel delivery order', (done) => {
+    chai.request(app)
+      .put('/api/v1/parcels/1232-3c44-xr4-35452-/cancel')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
 });

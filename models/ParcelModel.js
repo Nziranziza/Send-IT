@@ -26,6 +26,7 @@ class Parcel {
         owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Muhanga',
         weight: '10 kg',
+        status: 'ordered'
       },
       {
         id: uuid.v4(),
@@ -36,6 +37,7 @@ class Parcel {
         owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Huye',
         weight: '23 kg',
+        status: 'ordered'
       },
       {
         id: uuid.v4(),
@@ -46,6 +48,7 @@ class Parcel {
         owner: 'dc20098c-a5a2-4694-8379-62d41ca03341',
         presentLocation: 'Rusizi',
         weight: '45 kg',
+        status: 'ordered'
       }
     ];
   }
@@ -126,6 +129,20 @@ class Parcel {
       return false;
     }
     return parcelsforuser;
+  }
+  /**
+   *
+   * @param {uuid} id
+   * @returns {object} parcel object
+   */
+  cancel(id) {
+    const parcel = this.findOne(id);
+    if (parcel) {
+      const index = this.parcels.indexOf(parcel);
+      this.parcels[index].status = 'canceled';
+      return this.parcels[index];
+    }
+    return parcel;
   }
 }
 
