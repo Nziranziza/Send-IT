@@ -64,6 +64,18 @@ const Parcel = {
     }
     const ref = ParcelModel.delete(req.params.id);
     return res.status(204).send(ref);
+  },
+  /**
+   *
+   * @param {array} req
+   * @returns {object} res
+   */
+  getAllForUser(req, res) {
+    const parcels = ParcelModel.findAllForUser(req.params.id);
+    if (!parcels.length) {
+      return res.status(404).send({ message: 'parcels not found' });
+    }
+    return res.status(200).send(parcels);
   }
 };
 

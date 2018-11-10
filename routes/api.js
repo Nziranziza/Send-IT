@@ -14,7 +14,7 @@ router.get('/parcels/:id', parcelController.getOne);
 router.put('/parcels/:id/cancel', parcelController.update);
 
 /* Fetch all parcel delivery orders by a specific user */
-router.get('/users/:userId/parcels', parcelController.getAll);
+router.get('/users/:id/parcels', parcelController.getAllForUser);
 
 /* Create a parcel delivery order */
 router.post('/parcels', parcelController.create);

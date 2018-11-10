@@ -109,6 +109,24 @@ class Parcel {
     this.parcels.splice(index, 1);
     return {};
   }
+
+  /**
+   *
+   * @param {uuid} userId
+   * @returns {array} parcels array
+   */
+  findAllForUser(id) {
+    const parcelsforuser = [];
+    this.parcels.forEach((parcel) => {
+      if (parcel.owner === id) {
+        parcelsforuser.push(parcel);
+      }
+    });
+    if (!parcelsforuser) {
+      return false;
+    }
+    return parcelsforuser;
+  }
 }
 
 export default new Parcel();

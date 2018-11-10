@@ -166,4 +166,25 @@ describe('app api route', () => {
         done();
       });
   });
+  // Testing for getting parcels for one user
+  it('it should get all parcels for user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/parcels')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body.length.should.be.eql(3);
+        done();
+      });
+  });
+  it('it should not get all parcels for user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/dc20098c-a5a2-4694-8379/parcels')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcels not found');
+        done();
+      });
+  });
 });
