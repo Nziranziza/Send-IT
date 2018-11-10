@@ -1,8 +1,18 @@
 extends layout
-
-   block content
-      .container
-         h1.to-center.box.full-width API endpoints
-         .box
-            ul
-               li GET/parcels #[b Fetch all parcel delivery orders] #[a(href="/api/v1/parcels") All Parcel Delivery Orders]
+block content
+   .container
+      h1.to-center.box.primary API endpoints
+      .box
+         ul
+            li GET/parcels #[b Fetch all parcel delivery orders] #[a(href="/api/v1/parcels") All Parcel Delivery Orders]
+            li GET/parcels/:parcelId #[b Fetch a specific parcel delivery order] #[a(href="/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr") Fetch for this id:1232-3c44-xr4-35452-4c45c4c-35c345c-ccr]
+            li GET/users/:userId/parcels #[b Fetch all parcel delivery orders for a specifi user] #[a(href="/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/parcels") All Parcel delivery orders for id:dc20098c-a5a2-4694-8379-62d41ca03341]
+            li PUT/parcels/:parcelId/cancel #[b Cancel the specific parcel delivery order] #[a(href="/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr/cancel") You need Postman to test it]
+            li POST/parcels #[b Create a parcel delivery orders] #[a(href="/api/v1/parcels") Use Postman to test]
+            li GET/users #[b Fetch all users] #[a(href="/api/v1/users") Get all users]
+            li GET/users/:id #[b Fetch a specific user] #[a(href="/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341") Get user with id: dc20098c-a5a2-4694-8379-62d41ca03341]
+            li POST/users #[b Create a user] #[a(href="/api/v1/users") Use Postman to test it]
+            li PUT/users/login #[b Log into user account] #[a(href="/api/v1/users/login") Test with Postman]
+            li PUT/users/logout #[b Log out a user account] #[a(href="/api/v1/users") Test with Postman]
+            li PUT/users/:id/update-profile #[b Update a specific user profile] #[a(href="/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/update-profile") use Postman to test it]
+            
