@@ -1,4 +1,8 @@
 extends layout
-block content
-   .container
-      h1.to-center.box.primary API endpoints
+
+   block content
+      .container
+         h1.to-center.box.full-width API endpoints
+         .box
+            ul
+               li GET/parcels #[b Fetch all parcel delivery orders] #[a(href="/api/v1/parcels") All Parcel Delivery Orders]
