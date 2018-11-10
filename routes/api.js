@@ -4,6 +4,10 @@ import userController from '../controllers/UserController';
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.render('api');
+});
+
 /* Fetch all parcel delivery orders */
 router.get('/parcels', parcelController.getAll);
 
