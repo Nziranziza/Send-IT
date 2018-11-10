@@ -3,7 +3,7 @@ import parcelController from '../controllers/ParcelController';
 import userController from '../controllers/UserController';
 
 const router = express.Router();
-
+// API HOMEPAGE
 router.get('/', (req, res) => {
   res.render('api');
 });
