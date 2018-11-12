@@ -6,16 +6,16 @@ I have already upload the UI template for this project on github and if you want
 
 Here is a list of all API Endpoints that you will find:
 * **GET/parcels** Fetch all parcel delivery orders
-* **GET/parcels/<parcelid>** Fetch a specific parcel delivery order
-* **GET/users/<userid>/parcels** Fetch all parcel delivery order by a specific user
-* **PUT/parcels/<parcelid>/cancel** Cancel a specific parcel delivery order
+* **GET/parcels/:parcelid** Fetch a specific parcel delivery order
+* **GET/users/:userid/parcels** Fetch all parcel delivery order by a specific user
+* **PUT/parcels/:parcelid/cancel** Cancel a specific parcel delivery order
 * **POST/parcels** Create a parcel delivery order
 * **GET/users** Fetch all users
-* **GET/users/<userid>** Fetch a specific user by id
+* **GET/users/:userid** Fetch a specific user by id
 * **POST/users** Create a user
 * **PUT/users/login** Login a user account
 * **PUT/users/logout** Logout a user account
-* **PUT/users/<userid>/update-profile** Update the user profile
+* **PUT/users/:userid/update-profile** Update the user profile
 # Technology Tools used
 * Server-side Framework: **Node/Express JS**
 * Linting Library: **ESlint**
@@ -28,3 +28,15 @@ Here is a list of all API Endpoints that you will find:
 * Istanbul and nyc for test coverage
 * CodeClimate and Coveralls for badges
 * Heroku for Deployment
+
+The url of the app on heroku is this one [sendparcel.herokuapp.com](http://sendparcel.herokuapp.com).
+
+This is the list of all routes as on the **heroku deployment**:
+* Fetch all parcel delivery orders at [sendparcel.herokuapp.com/api/v1/parcels](http://sendparcel.herokuapp.com/api/v1/parcels)
+* Fetch a specific parcel parcel delivery order at [sendparcel.herokuapp.com/api/v1/parcels/:parcelid](http://sendparcel.herokuapp.com/api/v1/parcels/<parcelid>)
+* Fetch all parcel delivery order by a specific user [sendparcel.herokuapp.com/api/v1/users/:userid/parcels](http://sendparcel.herokuapp.com/api/v1/users/<userid>/parcels)
+* Cancel the specific parcel delivery order [sendparcel.herokuapp.com/api/v1/arcels/:parcelid/cancel](http://sendparcel.herokuapp.com/api/v1/users/<userid>/parcels)
+* Create a parcel delivery order [sendparcel.herokuapp.com/api/v1/parcels](http://sendparcel.herokuapp.com/api/v1/parcels)
+For a full list of all api endpoints [API Endpoints]([http://sendparcel.herokuapp.com/api/v1/]
+
+For a better test you will need to use [POSTMAN](https://www.getpostman.com/)
