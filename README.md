@@ -37,6 +37,7 @@ This is the list of all routes as on the **heroku deployment**:
 * Fetch all parcel delivery order by a specific user [sendparcel.herokuapp.com/api/v1/users/:userid/parcels](http://sendparcel.herokuapp.com/api/v1/users/<userid>/parcels)
 * Cancel the specific parcel delivery order [sendparcel.herokuapp.com/api/v1/arcels/:parcelid/cancel](http://sendparcel.herokuapp.com/api/v1/users/<userid>/parcels)
 * Create a parcel delivery order [sendparcel.herokuapp.com/api/v1/parcels](http://sendparcel.herokuapp.com/api/v1/parcels)
-For a full list of all api endpoints [API Endpoints]([http://sendparcel.herokuapp.com/api/v1/]
+
+For a full list of all api endpoints [API Endpoints](http://sendparcel.herokuapp.com/api/v1/)
 
 For a better test you will need to use [POSTMAN](https://www.getpostman.com/)
