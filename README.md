@@ -21,3 +21,10 @@ Here is a list of all API Endpoints that you will find:
 * Linting Library: **ESlint**
 * Style Guide: **Airbnb**
 * Testing Framework: **Mocha** or **Jasmine**
+
+# Additional Tools
+* JavaScript Es6 with **Babel** transpiler
+* TravisCI for Continous Integration
+* Istanbul and nyc for test coverage
+* CodeClimate and Coveralls for badges
+* Heroku for Deployment
