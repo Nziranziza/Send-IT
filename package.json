@@ -7,7 +7,7 @@
     "start": "node ./bin/start",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register --timeout 10000",
     "devstart": "nodemon ./bin/start",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
