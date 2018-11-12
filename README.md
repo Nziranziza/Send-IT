@@ -2,7 +2,7 @@
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT
 provides courier quotes based on weight categories.
 
-I have already upload the UI template for this project on github and if you want to have a look from this [link](https://github.com/Nziranziza/sendit)
+I have already upload the UI template for this project on github and if you want to have a look follow this [link](https://github.com/Nziranziza/sendit)
 
 Here is a list of all API Endpoints that you will find:
 * **GET/parcels** Fetch all parcel delivery orders
