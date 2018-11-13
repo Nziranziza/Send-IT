@@ -70,3 +70,8 @@ To run the test do
 ```
 $ npm test
 ```
+For eslint test do eslint file_name. For example this will test app.js
+
+```
+$ eslint app.js
+```
