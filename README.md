@@ -41,3 +41,32 @@ This is the list of all routes as on the **heroku deployment**:
 For a full list of all api endpoints [API Endpoints](http://sendparcel.herokuapp.com/api/v1/)
 
 For a better test you will need to use [POSTMAN](https://www.getpostman.com/)
+# Setup Instruction
+* Install [git](https://git-scm.com/downloads)
+* Install [Node js](https://nodejs.org/en/)
+
+For getting the files into your local machine open git bash and do git clone with repository url
+
+```
+$ git clone https://github.com/Nziranziza/Send-IT.git
+```
+Navigate to the folder containing all code files by typing cd folder_name
+
+```
+$ cd Send-IT
+```
+Install dependincies as they appear in package.json file by
+
+```
+$ npm install
+```
+To start the server do
+
+```
+$ npm start
+```
+To run the test do
+
+```
+$ npm test
+```
