@@ -17,6 +17,12 @@ router.get('/parcels/:id', parcelController.getOne);
 /* Cancel the specific parcel delivery order */
 router.put('/parcels/:id/cancel', parcelController.cancel);
 
+/* Update the specific parcel delivery order */
+router.put('/parcels/:id/update', parcelController.update);
+
+/* Update the specific parcel delivery order */
+router.delete('/parcels/:id/delete', parcelController.delete);
+
 /* Fetch all parcel delivery orders by a specific user */
 router.get('/users/:id/parcels', parcelController.getAllForUser);
 
@@ -31,6 +37,9 @@ router.get('/users/:id', userController.getOne);
 
 /* Update the profile */
 router.put('/users/:id/update-profile', userController.update);
+
+/* Update the profile */
+router.delete('/users/:id/delete', userController.deleteUser);
 
 /* Create a user account */
 router.post('/users', userController.create);

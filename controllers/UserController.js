@@ -8,7 +8,7 @@ const User = {
    * @returns {object} user object
    */
   create(req, res) {
-    if (!req.body.firstname && !req.body.lastname && !req.body.email && !req.body.password) {
+    if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
       return res.status(400).send({ message: 'All fields are required' });
     }
     const user = UserModel.create(req.body);
@@ -57,13 +57,13 @@ const User = {
    * @param {object} res
    * @returns {void} return status code 204
    */
-  delete(req, res) {
+  deleteUser(req, res) {
     const user = UserModel.findOne(req.params.id);
     if (!user) {
       return res.status(404).send({ message: 'user not found' });
     }
     const ref = UserModel.delete(req.params.id);
-    return res.status(204).send(ref);
+    return res.status(201).send(ref);
   },
   /**
    *

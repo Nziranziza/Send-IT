@@ -52,11 +52,11 @@ class User {
     const newUser = {
       id: uuid.v4(),
       firstname: data.firstname,
-      lastname: data.lastname || '',
-      email: data.email || '',
+      lastname: data.lastname,
+      email: data.email,
       confemail: data.confemail || '',
       createdDate: moment.now(),
-      password: data.password || '',
+      password: data.password,
       username: data.username || data.firstname + data.lastname,
       isloggedin: true
     };
@@ -111,7 +111,7 @@ class User {
     const user = this.findOne(id);
     const index = this.users.indexOf(user);
     this.users.splice(index, 1);
-    return {};
+    return { message: 'user was deleted successfully!!!' };
   }
 
   /**
