@@ -339,6 +339,49 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for login
+  it('it should login user account', (done) => {
+    const data = {
+      email: 'nziranzizadaniel@gmail.com',
+      password: '123456789',
+    };
+    chai.request(app)
+      .put('/api/v1/users/login')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('isloggedin').eql(true);
+        done();
+      });
+  });
+  it('it should not login user account', (done) => {
+    const data = {
+      email: 'nziranzizadaniel@gmail.com'
+    };
+    chai.request(app)
+      .put('/api/v1/users/login')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
+  // Testing logout
+  it('it should logout user account', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/logout')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('isloggedin').eql(false);
+        done();
+      });
+  });
   // Testing for updating user account
   it('it should update user profile', (done) => {
     const data = {
@@ -359,7 +402,7 @@ describe('api routes for user', () => {
         res.body.should.have.property('password').eql('123456789');
         res.body.should.have.property('createdDate');
         res.body.should.have.property('username').eql('Daniel');
-        res.body.should.have.property('isloggedin').eql(true);
+        res.body.should.have.property('isloggedin').eql(false);
         done();
       });
   });
@@ -372,6 +415,27 @@ describe('api routes for user', () => {
     chai.request(app)
       .put('/api/v1/users/dc20098c-a5a2-4694-8379-3341/update-profile')
       .send(data)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
+  // Testing for delete user account
+  it('it should delete user account', (done) => {
+    chai.request(app)
+      .delete('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/delete')
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user was deleted successfully!!!');
+        done();
+      });
+  });
+  it('it should not delete user account', (done) => {
+    chai.request(app)
+      .delete('/api/v1/users/dc20098c-a5a2-8379-62d41ca03341/delete')
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.be.a('object');

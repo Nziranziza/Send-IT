@@ -63,7 +63,7 @@ const User = {
       return res.status(404).send({ message: 'user not found' });
     }
     const ref = UserModel.delete(req.params.id);
-    return res.status(204).send(ref);
+    return res.status(201).send(ref);
   },
   /**
    *

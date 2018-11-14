@@ -38,6 +38,9 @@ router.get('/users/:id', userController.getOne);
 /* Update the profile */
 router.put('/users/:id/update-profile', userController.update);
 
+/* Update the profile */
+router.delete('/users/:id/delete', userController.delete);
+
 /* Create a user account */
 router.post('/users', userController.create);
 
