@@ -339,4 +339,44 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for updating user account
+  it('it should update user profile', (done) => {
+    const data = {
+      firstname: 'Dan',
+      lastname: 'Bryan',
+      email: 'danbryan@gmail.com'
+    };
+    chai.request(app)
+      .put('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/update-profile')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
+        res.body.should.have.property('firstname').eql('Dan');
+        res.body.should.have.property('lastname').eql('Bryan');
+        res.body.should.have.property('email').eql('danbryan@gmail.com');
+        res.body.should.have.property('password').eql('123456789');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('isloggedin').eql(true);
+        done();
+      });
+  });
+  it('it should not update user profile', (done) => {
+    const data = {
+      firstname: 'Dan',
+      lastname: 'Bryan',
+      email: 'danbryan@gmail.com'
+    };
+    chai.request(app)
+      .put('/api/v1/users/dc20098c-a5a2-4694-8379-3341/update-profile')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
 });
