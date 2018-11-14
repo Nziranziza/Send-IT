@@ -1,4 +1,4 @@
-# Send-IT API Endpoints [![Build Status](https://travis-ci.org/Nziranziza/Send-IT.svg?branch=master)](https://travis-ci.org/Nziranziza/Send-IT) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/Nziranziza/Send-IT) 
+# Send-IT API Endpoints [![Build Status](https://travis-ci.org/Nziranziza/Send-IT.svg?branch=master)](https://travis-ci.org/Nziranziza/Send-IT) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/Nziranziza/Send-IT) [![Coverage Status](https://coveralls.io/repos/github/Nziranziza/Send-IT/badge.svg)](https://coveralls.io/github/Nziranziza/Send-IT)
 SendIT is a courier service that helps users deliver parcels to different destinations. SendIT
 provides courier quotes based on weight categories.
 
