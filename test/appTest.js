@@ -80,7 +80,7 @@ describe('app index route', () => {
       });
   });
 });
-describe('app api route', () => {
+describe('app api route for parcel delivery order', () => {
   it('it should GET all parcels', (done) => {
     chai.request(app)
       .get('/api/v1/parcels')
@@ -228,6 +228,27 @@ describe('app api route', () => {
   it('it should not update parcel delivery order', (done) => {
     chai.request(app)
       .put('/api/v1/parcels/1232-3c44-xr4-35452/update')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
+  // Testing for delete
+  it('it should delete parcel delivery order', (done) => {
+    chai.request(app)
+      .delete('/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr/delete')
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel was deleted successfully!!!');
+        done();
+      });
+  });
+  it('it should not delete parcel delivery order', (done) => {
+    chai.request(app)
+      .delete('/api/v1/parcels/1232-3c44-xr4-3/delete')
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.be.a('object');

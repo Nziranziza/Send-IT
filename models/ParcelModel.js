@@ -110,7 +110,7 @@ class Parcel {
     const parcel = this.findOne(id);
     const index = this.parcels.indexOf(parcel);
     this.parcels.splice(index, 1);
-    return {};
+    return { message: 'parcel was deleted successfully!!!' };
   }
 
   /**
