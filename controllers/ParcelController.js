@@ -63,7 +63,7 @@ const Parcel = {
       return res.status(404).send({ message: 'parcel not found' });
     }
     const ref = ParcelModel.delete(req.params.id);
-    return res.status(204).send(ref);
+    return res.status(201).send(ref);
   },
   /**
    *

@@ -96,7 +96,7 @@ class Parcel {
   update(id, data) {
     const parcel = this.findOne(id);
     const index = this.parcels.indexOf(parcel);
-    this.parcels[index].frrom = data.from || parcel.from;
+    this.parcels[index].from = data.from || parcel.from;
     this.parcels[index].destination = data.destination || parcel.destination;
     this.parcels[index].weight = data.weight || parcel.weight;
     return this.parcels[index];
@@ -110,7 +110,7 @@ class Parcel {
     const parcel = this.findOne(id);
     const index = this.parcels.indexOf(parcel);
     this.parcels.splice(index, 1);
-    return {};
+    return { message: 'parcel was deleted successfully!!!' };
   }
 
   /**
