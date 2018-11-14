@@ -208,4 +208,31 @@ describe('app api route', () => {
         done();
       });
   });
+  // Testing parcel delivery update
+  it('it should update parcel delivery order', (done) => {
+    chai.request(app)
+      .put('/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr/update')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id').eql('1232-3c44-xr4-35452-4c45c4c-35c345c-ccr');
+        res.body.should.have.property('from');
+        res.body.should.have.property('destination');
+        res.body.should.have.property('owner');
+        res.body.should.have.property('presentLocation');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('weight');
+        done();
+      });
+  });
+  it('it should not update parcel delivery order', (done) => {
+    chai.request(app)
+      .put('/api/v1/parcels/1232-3c44-xr4-35452/update')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
 });
