@@ -8,7 +8,7 @@ const User = {
    * @returns {object} user object
    */
   create(req, res) {
-    if (!req.body.firstname && !req.body.lastname && !req.body.email && !req.body.password) {
+    if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
       return res.status(400).send({ message: 'All fields are required' });
     }
     const user = UserModel.create(req.body);
