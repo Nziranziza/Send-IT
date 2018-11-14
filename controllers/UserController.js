@@ -57,7 +57,7 @@ const User = {
    * @param {object} res
    * @returns {void} return status code 204
    */
-  delete(req, res) {
+  deleteUser(req, res) {
     const user = UserModel.findOne(req.params.id);
     if (!user) {
       return res.status(404).send({ message: 'user not found' });
