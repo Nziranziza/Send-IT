@@ -4,50 +4,36 @@ const router = express.Router();
 
 /* GET index page. */
 router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'SendIT'
-  });
+  res.render('index');
 });
 
 /* GET about us page. */
 router.get('/about-us', (req, res) => {
-  res.render('about', {
-    title: 'SendIT'
-  });
+  res.render('about');
 });
 
 /* GET contact us page. */
 router.get('/contact-us', (req, res) => {
-  res.render('contact', {
-    title: 'SendIT'
-  });
+  res.render('contact');
 });
 
 /* GET login page. */
 router.get('/login', (req, res) => {
-  res.render('login', {
-    title: 'SendIT'
-  });
+  res.render('login');
 });
 
 /* GET sign up page. */
 router.get('/sign-up', (req, res) => {
-  res.render('signup', {
-    title: 'SendIT'
-  });
+  res.render('signup');
 });
 
 /* GET user-dashboard page. */
 router.get('/user-dashboard', (req, res) => {
-  res.render('user', {
-    title: 'SendIT'
-  });
+  res.render('user');
 });
 
 /* GET admin page. */
 router.get('/admin-dashboard', (req, res) => {
-  res.render('admin', {
-    title: 'SendIT'
-  });
+  res.render('admin');
 });
 export default router;
