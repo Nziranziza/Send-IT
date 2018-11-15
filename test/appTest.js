@@ -46,7 +46,7 @@ describe('app index route', () => {
 
   it('it should GET About us Page ', (done) => {
     chai.request(app)
-      .get('/sign-up')
+      .get('/about-us')
       .end((err, res) => {
         res.should.have.status(200);
         done();
@@ -55,7 +55,7 @@ describe('app index route', () => {
 
   it('it should GET Admin Dashboard Page ', (done) => {
     chai.request(app)
-      .get('/sign-up')
+      .get('/admin-dashboard')
       .end((err, res) => {
         res.should.have.status(200);
         done();
@@ -64,7 +64,7 @@ describe('app index route', () => {
 
   it('it should GET User Dashboard Page ', (done) => {
     chai.request(app)
-      .get('/sign-up')
+      .get('/user-dashboard')
       .end((err, res) => {
         res.should.have.status(200);
         done();
@@ -79,6 +79,16 @@ describe('app index route', () => {
         done();
       });
   });
+
+  it('it should handle 404 error', (done) => {
+    chai.request(app)
+      .get('/api/v1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
 });
 describe('app api route for parcel delivery order', () => {
   it('it should GET all parcels', (done) => {
