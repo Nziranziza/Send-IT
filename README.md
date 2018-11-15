@@ -20,7 +20,7 @@ Here is a list of all API Endpoints that you will find:
 * Server-side Framework: **Node/Express JS**
 * Linting Library: **ESlint**
 * Style Guide: **Airbnb**
-* Testing Framework: **Mocha** or **Jasmine**
+* Testing Framework: **Mocha** with **Chai**
 
 # Additional Tools
 * JavaScript Es6 with **Babel** transpiler
