@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT">
+        <meta name="author" content="Daniel Nziranziza">
+        <meta name="description" content="A fast and reliable courier service">
+        <title>SendIT- a fast and reliable courier service</title>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="shortcut icon" type="image/png" href="img/send.png"/>
+    </head>
+    <body onload="populate()">
+
+        <header id="bg-img">
+            <!-- stands for navigation bar-->
+            <div class="container">
+            <div id="brand">
+                <a href="index.html"><img src="img/send.png" alt="Slogo" id="logo"><label class="top-label">SendIT</label></a>
+            </div>
+            <nav class="home-navbar">
+                <ul>
+                    <li><a href="index.html"><b>HOME</b></a></li>
+                    <li><a href="./pages/login.html"><b>LOGIN</b></a></li>
+                    <li><a href="./pages/contact.html"><b>CONTACT US</b></a></li>
+                    <li><a href="./pages/about.html"><b>ABOUT US</b></a></li>                   
+                </ul>
+            </nav>
+            </div>
+            <!--stands for description and button get started-->
+            <div class="to-center">
+               
+               <h1>Welcome to SendIT</h1>
+               <h2>A Fast ,Easy ,Trustworthy and Reliable courier service platform</h2>
+                <a class="button" id="btn-start" href="./pages/create-account.html" onClick="displayParcel()">Get Started Now</a>
+            </div>
+        </header>
+
+        <section id="rectangles"><!--Stands for our services-->
+            <div class="container">
+                <h1 class="to-center">Our services</h1>
+                            <div class="rectangle-3">
+                                <h3>Parcel Delivery</h3>
+                                <img src="img/motorcycle.png" alt="serv1" class="icon"/>
+                                <p><b>We deliver your parcel to different location with our trustworthy and reliable courier services.
+                                   No matter how is your parcel we make sure we deliver it on time and without any damage</b>
+                                </p>
+                            </div>
+                            <div class="rectangle-3">
+                                <h3>Booking Parcel Delivery</h3>
+                                <img src="img/online-booking.png" alt="serv2" class="icon"/>
+                                <p><b>With our platform you will be able to book your parcel delivery at a better price.
+                                    Choose the date you wish your parcel to be delivered at give us your place we will reach if it is time.
+                                </b>
+                                </p>
+                            </div>
+                            <div class="rectangle-3">
+                                <h3>Comparing courier quotes</h3>
+                                <img src="img/bar-chart.png" alt="serv3" class="icon"/>
+                                <p><b>As there are many courier services companies. With our platform you will be able to compare price from all those.
+                                      Fell free to choose the one you like because we selected the most trusted companies.
+                                </b>
+                                </p>
+                            </div>   
+            </div>
+        </section>
+
+        <section id="home-section"><!--Stands for what we do and ads-->
+            <div class="container">
+                    <div class="box square-2-3" id="why">
+                            <h2 class="to-center">Why use SendIT?</h2>
+                            <ol>
+                                <li>Quickest Rwanda delivery services</li>
+                                <li>Secure person to person delivery</li>
+                                <li>Perfect for urgent items</li>
+                                <li>Available on demand 24/7</li>
+                                <li>Motorbike & Van services</li>
+                            </ol>
+                    </div>
+                    <div class="square-3">
+                        <img src="img/driver.png">
+                    </div>
+            </div>
+        </section>
+        <section class="primary">
+            <div class="container to-center">
+              <h1>How does it work with SendIT?</h1>
+            <div>
+        </section>
+        <section>
+            <div class="container">
+              <div class="table">
+                <div class="rectangle-3">
+                    <img src="img/sign-up.png">
+                </div>
+                <div class="box rectangle-2-3 default">
+                    <h3>Create an account</h3>
+                    <p>To get started you will need to create an acount.This account will help you to manage your parcel delivery order,it will enable you to create the parcel delivery order,to order them
+                        ,to cancel them when you no longer need to sent the parcel,to change the destination of the parcel as well as tracking the your parcel. It will also help you get notification of where your parcel is in case 
+                        the location changes.
+                    </p>
+                </div>
+            </div>
+          </div>
+          <div class="pink-lighten">
+            <div class="table container">
+                <div class="rectangle-3 box primary">
+                   <h3>Access the dashboard</h3>
+                   <p>The dashboard is the your working place,you will be able to create your first 3 parcel delivery order for 3.
+                    Complete the form and hit create, the parcel delivey order should be displayed in the recent parcel delivery order.
+                    Hit order to make an order for your first parcel order,Hit change destination to change the destination of your parcel delivery order,
+                   Hit cancel to cancel your parcel delivery order in case you no longer need it to be delivered.</p>
+                </div>
+                <div class="rectangle-2-3">
+                    <img src="img/dashboard.png" id="dashboard">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table">
+                <div class="rectangle-3">
+                    <img src="img/pay.png">
+                </div>
+                <div class="rectangle-2-3 del">
+                    <h3>Order and Pay Online</h3>
+                    <p>Once you hit order you will need to pay for your parcel delivery order and to pay is simple.
+                        You will need to use your smart card or mobile money. The price will be measured based on the weight of your parcel.
+                    </p>
+                </div>
+            </div>
+          </div>
+        </section>
+        <footer>
+            <hr/>
+            <p>&copy SendIT 2018. <a href="#" id="footer-link">Terms</a><a href="#">Privacy</a></p>
+            <script src="js/parcel.js"></script>
+        </footer>
+    </body>
+</html>

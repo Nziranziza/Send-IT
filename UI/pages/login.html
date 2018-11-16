@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT">
+        <meta name="author" content="Daniel Nziranziza">
+        <meta name="description" content="A fast and reliable courier service">
+        <title>SendIT- a fast and reliable courier service</title>
+        <link href="../css/index.css" rel="stylesheet" >
+        <link rel="shortcut icon" type="image/png" href="../img/send.png"/>
+    </head>
+    <body>
+<!--The header of the page-->
+        <header>
+            <div class="container">
+                <div id="brand">
+                    <a href="../index.html"><img src="../img/send.png" alt="Slogo" id="logo"><label class="top-label">SendIT</label></a>
+                </div>
+                <nav>
+                    <ul>
+                            <li><a href="../index.html"><b>HOME</b></a></li>
+                            <li><a href="login.html"><b>LOGIN</b></a></li>
+                            <li><a href="contact.html"><b>CONTACT US</b></a></li>
+                            <li><a href="about.html"><b>ABOUT US</b></a></li>   
+                    </ul>
+                </nav>
+            </div>
+        </header>
+<!--The login form-->
+      <div class="form">
+        <form  action="createparcel.html" onSubmit="return login()">
+            <div>
+                <img src="../img/send.png" class="icon img-center"/> 
+                <div class="to-center">
+                    <label id="login-title">Sign in to SendIT</label>
+                </div>
+            </div>
+            <div class="box">
+                <input type="text" placeholder="Email" name="email" class="full-width" id="email" required>
+                <br />
+                <input type="password" placeholder="Password" class="full-width"id="password" required>
+                <br />
+                <button type="submit" class="button primary full-width" >Login</button>
+            </div>
+            <!--The error display div-->
+            <div id="err-msg" class="to-center">
+
+            </div>
+            <div class="to-center box">
+                <a href="create-account.html">Create an account</a>
+            </div>
+        </form>
+      </div>
+<!--The footer of the page-->
+        <footer class="fixed-footer">
+             <div class="container">
+                 <hr/>
+                 <p>&copy SendIT 2018. <a href="#" id="footer-link">Terms</a><a href="#">Privacy</a></p>
+                 <script src="../js/account.js"></script>
+             </div>
+        </footer>
+   
+    </body>
+</html>
