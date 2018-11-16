@@ -119,16 +119,7 @@ class Parcel {
    * @returns {array} parcels array
    */
   findAllForUser(id) {
-    const parcelsforuser = [];
-    this.parcels.forEach((parcel) => {
-      if (parcel.owner === id) {
-        parcelsforuser.push(parcel);
-      }
-    });
-    if (!parcelsforuser) {
-      return false;
-    }
-    return parcelsforuser;
+    return this.parcels.filter(parcel => id === parcel.owner);
   }
   /**
    *
