@@ -227,4 +227,69 @@ describe('Parcels Routes Test', () => {
         done();
       });
   });
+  // Testing for delete
+  it('it should delete parcel delivery order', (done) => {
+    chai.request(app)
+      .delete('/api/v1/parcels/1232-3c44-xr4-35452-4c45c4c-35c345c-ccr/delete')
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel was deleted successfully!!!');
+        done();
+      });
+  });
+  it('it should not delete parcel delivery order', (done) => {
+    chai.request(app)
+      .delete('/api/v1/parcels/1232-3c44-xr4-3/delete')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
+});
+// User route test
+describe('api routes for user', () => {
+  // Testing for create user
+  it('it should create user account', (done) => {
+    const data = {
+      firstname: 'Clet',
+      lastname: 'Mwunguzi',
+      email: 'clet@gmail.com',
+      password: '1234567890'
+    };
+    chai.request(app)
+      .post('/api/v1/users')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('firstname').eql('Clet');
+        res.body.should.have.property('lastname').eql('Mwunguzi');
+        res.body.should.have.property('email').eql('clet@gmail.com');
+        res.body.should.have.property('password').eql('1234567890');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('username').eql('CletMwunguzi');
+        res.body.should.have.property('isloggedin').eql(true);
+        done();
+      });
+  });
+  it('it should not create user account', (done) => {
+    const data = {
+      firstname: 'Clet',
+      lastname: 'Mwunguzi',
+      email: 'clet@gmail.com',
+    };
+    chai.request(app)
+      .post('/api/v1/users')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('All fields are required');
+        done();
+      });
+  });
 });
