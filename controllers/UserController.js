@@ -50,5 +50,22 @@ const User = {
     }
     return res.status(200).send(targetUser);
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
+  signin(req, res) {
+    const { email, password } = req.body;
+    const targetUser = Users.find(user => user.email === email && user.password === password);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const index = Users.indexOf(targetUser);
+    Users[index].isloggedin = true;
+    const activeUser = Users[index];
+    return res.status(200).send(activeUser);
+  },
 };
 export default User;

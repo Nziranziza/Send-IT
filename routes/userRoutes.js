@@ -15,4 +15,7 @@ router.route('/')
 /* Fetch a specific user */
 router.get('/:id', userController.getOne);
 
+/* Sign in into user account */
+router.put('/login', userController.signin);
+
 export default router;

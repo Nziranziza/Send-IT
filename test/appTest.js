@@ -331,4 +331,35 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for login
+  it('it should login user account', (done) => {
+    const data = {
+      email: 'nziranzizadaniel@gmail.com',
+      password: '123456789',
+    };
+    chai.request(app)
+      .put('/api/v1/users/login')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('isloggedin').eql(true);
+        done();
+      });
+  });
+  it('it should not login user account', (done) => {
+    const data = {
+      email: 'nziranzizadaniel@gmail.com'
+    };
+    chai.request(app)
+      .put('/api/v1/users/login')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
 });
