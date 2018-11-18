@@ -24,4 +24,7 @@ router.put('/logout', userController.signout);
 /* Update the profile */
 router.put('/:id/update-profile', userController.update);
 
+/* Update the profile */
+router.delete('/:id/delete', userController.deleteUser);
+
 export default router;

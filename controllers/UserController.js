@@ -102,5 +102,20 @@ const User = {
     const updatedUser = Users[index];
     return res.status(200).send(updatedUser);
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+  deleteUser(req, res) {
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const index = Users.indexOf(targetUser);
+    Users.splice(index, 1);
+    return res.status(201).send({ message: 'user was deleted successfully!!!' });
+  }
 };
 export default User;

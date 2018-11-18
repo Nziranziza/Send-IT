@@ -422,4 +422,25 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for delete user account
+  it('it should delete user account', (done) => {
+    chai.request(app)
+      .delete('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/delete')
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user was deleted successfully!!!');
+        done();
+      });
+  });
+  it('it should not delete user account', (done) => {
+    chai.request(app)
+      .delete('/api/v1/users/dc20098c-a5a2-8379-62d41ca03341/delete')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
 });
