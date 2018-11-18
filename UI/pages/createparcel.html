@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT">
+        <meta name="author" content="Daniel Nziranziza">
+        <meta name="description" content="A fast and reliable courier service">
+        <title>SendIT- a fast and reliable courier service</title>
+        <link href="../css/index.css" rel="stylesheet">
+        <link href="../css/popup.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" type="image/png" href="../img/send.png"/>
+    </head>
+    <body onload="fetchParcel()">
+<!--Header of the page-->
+            <header>
+                    <div class="container">
+                            <div id="brand">
+                                <a href="../index.html"><img src="../img/send.png" alt="Slogo" id="logo"><label class="top-label">SendIT</label></a>
+                            </div>
+                        <nav>
+                            <ul>
+                                <li><a href="../index.html"><b>HOME</b></a></li>
+                                <li><a href="login.html"><b>LOGOUT</b></a></li>
+                                <li><a href="contact.html"><b>CONTACT US</b></a></li>
+                                <li><a href="about.html"><b>ABOUT US</b></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+            </header>
+
+        <div class="container">
+<!--User Dashboard header-->
+            <div class="box" id="user-header">
+                <label class="top-label">Create Parcel Delivery Order With SendIT</label>
+              <div id="user-btn">
+                <a class="button current" href="createparcel.html" id="link1">Create Parcel DOs</a>
+                <a class="button primary" href="#" onClick="viewDeliveredPOs()" id="link2">Delivered Parcel</a>
+                <a class="button primary" href="#" onClick="viewInTransitPDOs()" id="link3">In Transit Parcel DOs</a>
+                <a class="button primary" href="#" onClick="viewAllPDOs()" id="link4">All my Parcel DOs</a>
+                <a class="button primary" href="track.html" id="link5" onClick="trackParcel()">Track my Parcel</a>
+              </div>
+            </div>
+
+<!--User content is displayed here-->
+        <section id="user-content">
+          <div class="block">
+            <div class="form-3">
+                <form action="#" class="box">
+                    <label>Please indicate where your parcel is loacted</label>
+                    <br />
+                    <input type="text" placeholder="From" class="full-width" id="from" required><br />
+                    <label>Please tell us where you would like your parcel to be delivered</label>
+                    <br />
+                    <input type="text" placeholder="Destination" class="full-width" id="destination" required><br />
+                    <label>How heavy is your box</label>
+                    <br />
+                    <input type="number" class="full-width" id="weight"><br />
+                    <button type="submit" class="button primary" onclick="saveParcel()">Create order</button>
+                </form>        
+            </div>
+            <div  class="form-3">
+                <h2 class="margin-left to-center">Recent Parcel delivery Order</h2>
+                <div id="display">
+                </div>
+            </div>
+            <div class="form-3 margin-left ads">
+                <img src="../img/home-courier.png" class="box"> 
+            </div>
+          </div>
+        </section>
+        <footer>
+           <hr />
+           <p>&copy SendIT 2018. <a href="#" style="padding-right:10px">Terms</a><a href="#">Privacy</a></p>
+           <script type="text/javascript" src="../js/parcel.js"></script>
+           <script type="text/javascript" src="../js/popup.js"></script>
+           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNdvlLuUOv_1D7BYueHC02dTs2J5qjTo&callback=initMap">
+            </script>
+        </footer>
+    </div>
+    </body>
+</html>

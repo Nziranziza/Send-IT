@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT">
+        <meta name="author" content="Daniel Nziranziza">
+        <meta name="description" content="A fast and reliable courier service">
+        <title>SendIT- a fast and reliable courier service</title>
+        <link href="../css/index.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="../img/send.png"/>
+    </head>
+    <body onload="adminParcel()">
+            <header>
+                    <div class="container">
+                        <div id="brand">
+                            <a href="../index.html"><img src="../img/send.png" alt="Slogo" id="logo"><label class="top-label">SendIT</label></a>
+                        </div>
+                    <nav>
+                        <ul>
+                            <li><a href="../index.html"><b>HOME</b></a></li>
+                            <li><a href="login.html"><b>LOGIN</b></a></li>
+                            <li><a href="contact.html"><b>CONTACT US</b></a></li>
+                            <li><a href="about.html"><b>ABOUT US</b></a></li>     
+                        </ul>
+                    </nav>
+                    </div>
+                </header>
+        <div>
+        <div class="block">
+            <div class="box default adctr" id="admin-panel">
+                <ul>
+                    <li><a class="button default" href="admin.html">Dashboard</a></li>
+                    <li><a class="button default" href="#">Mail</a></li>
+                    <li><a class="button default" href="#">All Parcel DOs</a></li>
+                    <li><a class="button default" href="#">Delivered POs </a></li>
+                    <li><a class="button default" href="#">In Transit PDOs</a></li>
+                    <li><a class="button default" href="#">Track on Maps</a></li>
+                </ul>
+            </div>
+        <div id="admin-header">
+            <div class="block">
+              <div class="box success admctr">Users<span class="badge badge-success">0</span></div>
+              <div class="box del admctr">Parcel delivery orders<span class="badge badge-del">0</span></div>
+              <div class="box primary admctr">Vistors<span class="badge badge-primary">0</span></div>
+              <div class="box success admctr">Sales<span class="badge badge-success">0</span></div>
+            </div>
+ <!---The parcel delivery output-->           
+            <div id="admin-table full-width">
+                <table class="full-width">
+                    <tbody id="admin">
+    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ads">
+            <h1 class="to-center box">Ads</h1>
+            <img src="../img/home-courier.png">
+        </div>
+       </div>
+        <footer>
+          <hr/>
+          <p>&copy SendIT 2018. <a href="#" style="padding-right:10px">Terms</a><a href="#">Privacy</a></p>
+          <script src="../js/account.js"></script>
+          <script src="../js/parcel.js"></script>
+        </footer>
+    </body>
+</html>
+

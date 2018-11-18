@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="Courier service,Parcel delivery order,Parcel delivery,SendIT">
+        <meta name="author" content="Daniel Nziranziza">
+        <meta name="description" content="A fast and reliable courier service">
+        <title>SendIT- a fast and reliable courier service</title>
+        <link href="../css/index.css" rel="stylesheet">
+        <link href="../css/popup.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" type="image/png" href="../img/send.png"/>
+    </head>
+    <body>
+<!--Header of the page-->
+            <header>
+                    <div class="container">
+                            <div id="brand">
+                                <a href="../index.html"><img src="../img/send.png" alt="Slogo" id="logo"><label class="top-label">SendIT</label></a>
+                            </div>
+                        <nav>
+                            <ul>
+                                <li><a href="../index.html"><b>HOME</b></a></li>
+                                <li><a href="login.html"><b>LOGOUT</b></a></li>
+                                <li><a href="contact.html"><b>CONTACT US</b></a></li>
+                                <li><a href="about.html"><b>ABOUT US</b></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+            </header>
+
+        <div class="container">
+<!--User Dashboard header-->
+            <div class="box" id="user-header">
+                <label class="top-label">Create Parcel Delivery Order With SendIT</label>
+              <div id="user-btn">
+                <a class="button primary" href="createparcel.html" id="link1">Create Parcel DOs</a>
+                <a class="button primary" href="#" onClick="viewDeliveredPOs()" id="link2">Delivered Parcel</a>
+                <a class="button primary" href="#" onClick="viewInTransitPDOs()" id="link3">In Transit Parcel DOs</a>
+                <a class="button primary" href="#" onClick="viewAllPDOs()" id="link4">All my Parcel DOs</a>
+                <a class="button current" href="track.html" id="link5" onClick="trackParcel()">Track my Parcel</a>
+              </div>
+            </div>
+
+<!--User content is displayed here-->
+        <section id="user-content">
+            <div class="box">
+               <h3>Track your Parcels</h3>
+               <span><b>Select your parcel:</b></span>
+               <select class="sticker">
+                    <option value="volvo">Muhanga-Kigali</option>
+                    <option value="saab">Muhanga-Huye</option>
+                    <option value="mercedes">Muhanga-Rubavu</option>
+                    <option value="audi">Muhanga-Rwamagana</option>
+               </select>
+               <span><b>Present Location:</b></span>
+               <span class="sticker">Kamonyi</span>
+               <span><b>Distance Traveled:</b></span>
+               <span class="sticker">5o km</span>
+               <span><b>Pickup Location:</b></span>
+               <span class="sticker">Nyabugogo</span>
+            </div>
+            <div id="map" class="box"></div>
+        </section>
+        <footer>
+           <hr />
+           <p>&copy SendIT 2018. <a href="#" style="padding-right:10px">Terms</a><a href="#">Privacy</a></p>
+           <script type="text/javascript" src="../js/parcel.js"></script>
+           <script type="text/javascript" src="../js/popup.js"></script>
+           <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPNdvlLuUOv_1D7BYueHC02dTs2J5qjTo&callback=initMap">
+            </script>
+            <script src="../js/track.js">   
+            </script>
+        </footer>
+    </div>
+    </body>
+</html>
