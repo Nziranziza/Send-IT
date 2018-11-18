@@ -96,6 +96,21 @@ const Parcel = {
     const updatedParcel = Parcels[index];
     return res.status(200).send(updatedParcel);
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+  delete(req, res) {
+    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
+    if (!targetParcel) {
+      return res.status(404).send({ message: 'parcel not found' });
+    }
+    const index = Parcels.indexOf(targetParcel);
+    Parcels.splice(index, 1);
+    return res.status(201).send({ message: 'parcel was deleted successfully!!!' });
+  }
 };
 
 export default Parcel;
