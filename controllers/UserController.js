@@ -82,6 +82,25 @@ const User = {
     Users[index].isloggedin = false;
     const passiveUser = Users[index];
     return res.status(200).send(passiveUser);
-  }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated user
+   */
+  update(req, res) {
+    const { firstname, lastname, email } = req.body;
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const index = Users.indexOf(targetUser);
+    Users[index].firstname = firstname || targetUser.firstname;
+    Users[index].lastname = lastname || targetUser.lastname;
+    Users[index].email = email || targetUser.email;
+    const updatedUser = Users[index];
+    return res.status(200).send(updatedUser);
+  },
 };
 export default User;

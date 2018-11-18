@@ -21,4 +21,7 @@ router.put('/login', userController.signin);
 /* Sign out user account */
 router.put('/logout', userController.signout);
 
+/* Update the profile */
+router.put('/:id/update-profile', userController.update);
+
 export default router;
