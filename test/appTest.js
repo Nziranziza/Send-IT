@@ -251,6 +251,15 @@ describe('Parcels Routes Test', () => {
 });
 // User route test
 describe('api routes for user', () => {
+  // Test for logout account
+  it('it should not logout user account', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/logout')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
   // Testing for create user
   it('it should create user account', (done) => {
     const data = {
@@ -359,6 +368,17 @@ describe('api routes for user', () => {
         res.should.have.status(404);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
+  it('it should logout user account', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/logout')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('isloggedin').eql(false);
         done();
       });
   });

@@ -67,5 +67,21 @@ const User = {
     const activeUser = Users[index];
     return res.status(200).send(activeUser);
   },
+  /**
+   *
+   * @param {void}
+   * @returns {object} user object
+   *
+   */
+  signout(req, res) {
+    const activeUser = Users.find(user => user.isloggedin === true);
+    if (!activeUser) {
+      return res.status(404).send({ message: ' u are not logged in' });
+    }
+    const index = Users.indexOf(activeUser);
+    Users[index].isloggedin = false;
+    const passiveUser = Users[index];
+    return res.status(200).send(passiveUser);
+  }
 };
 export default User;

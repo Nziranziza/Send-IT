@@ -18,4 +18,7 @@ router.get('/:id', userController.getOne);
 /* Sign in into user account */
 router.put('/login', userController.signin);
 
+/* Sign out user account */
+router.put('/logout', userController.signout);
+
 export default router;
