@@ -80,21 +80,13 @@ describe('app index route', () => {
       });
   });
 });
-describe('app api route', () => {
-  it('it should GET all parcels', (done) => {
-    chai.request(app)
-      .get('/api/v1/parcels')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
+describe('Parcels Routes Test', () => {
   // Testing create parcel endpoint
   it('it should create parcel', (done) => {
     const data = {
       from: 'Muhanga',
       destination: 'Kigali',
-      weight: '23'
+      weight: 23
     };
     chai.request(app)
       .post('/api/v1/parcels')
@@ -108,7 +100,8 @@ describe('app api route', () => {
         res.body.should.have.property('owner');
         res.body.should.have.property('presentLocation').eql('Muhanga');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('weight').eql('23');
+        res.body.should.have.property('weight').eql(23);
+        res.body.should.have.property('price').eql(10350);
         done();
       });
   });
@@ -127,7 +120,7 @@ describe('app api route', () => {
         done();
       });
   });
-  // Testing getting parcel delivery order
+  // Testing getting all parcel delivery order
   it('it should get all parcel', (done) => {
     chai.request(app)
       .get('/api/v1/parcels')
