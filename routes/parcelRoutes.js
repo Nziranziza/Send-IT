@@ -13,4 +13,7 @@ router.get('/:id', parcelController.getOne);
 
 /* Cancel the specific parcel delivery order */
 router.put('/:id/cancel', parcelController.cancel);
+
+/* Update the specific parcel delivery order */
+router.put('/:id/update', parcelController.update);
 export default router;

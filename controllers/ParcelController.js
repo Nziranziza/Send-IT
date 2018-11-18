@@ -76,7 +76,26 @@ const Parcel = {
     const index = Parcels.indexOf(targetParcel);
     Parcels[index].status = 'canceled';
     return res.status(200).send(Parcels[index]);
-  }
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated parcel
+   */
+  update(req, res) {
+    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
+    const data = req.body;
+    if (!targetParcel) {
+      return res.status(404).send({ message: 'parcel not found' });
+    }
+    const index = Parcels.indexOf(targetParcel);
+    Parcels[index].from = data.from || targetParcel.from;
+    Parcels[index].destination = data.destination || targetParcel.destination;
+    Parcels[index].weight = data.weight || targetParcel.weight;
+    const updatedParcel = Parcels[index];
+    return res.status(200).send(updatedParcel);
+  },
 };
 
 export default Parcel;
