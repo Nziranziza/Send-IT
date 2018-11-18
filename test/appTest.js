@@ -79,6 +79,14 @@ describe('app index route', () => {
         done();
       });
   });
+  it('it should get API Home page', (done) => {
+    chai.request(app)
+      .get('/api/v1')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
 });
 describe('Parcels Routes Test', () => {
   // Testing create parcel endpoint

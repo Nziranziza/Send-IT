@@ -50,4 +50,8 @@ router.get('/admin-dashboard', (req, res) => {
     title: 'SendIT'
   });
 });
+// API HOMEPAGE
+router.get('/api/v1', (req, res) => {
+  res.render('api');
+});
 export default router;
