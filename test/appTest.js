@@ -303,4 +303,32 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for fetch a specific user
+  it('it should get a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
+        res.body.should.have.property('firstname').eql('Daniel');
+        res.body.should.have.property('lastname').eql('Nziranziza');
+        res.body.should.have.property('email').eql('nziranzizadaniel@gmail.com');
+        res.body.should.have.property('password').eql('123456789');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('isloggedin').eql(false);
+        done();
+      });
+  });
+  it('it should not get all a specific user', (done) => {
+    chai.request(app)
+      .get('/api/v1/users/dc20098c-a5a2-4694-62d41ca03341')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('user not found');
+        done();
+      });
+  });
 });

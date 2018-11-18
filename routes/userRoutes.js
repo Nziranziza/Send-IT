@@ -12,4 +12,7 @@ router.route('/')
   .post(userController.create)
   .get(userController.getAll);
 
+/* Fetch a specific user */
+router.get('/:id', userController.getOne);
+
 export default router;

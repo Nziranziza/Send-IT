@@ -37,5 +37,18 @@ const User = {
     const users = Users;
     return res.status(200).send(users);
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} user object
+   */
+  getOne(req, res) {
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    return res.status(200).send(targetUser);
+  },
 };
 export default User;
