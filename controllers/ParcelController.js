@@ -1,4 +1,6 @@
-import ParcelModel from '../models/ParcelModel';
+import moment from 'moment';
+import uuid from 'uuid';
+import Parcels from '../data/Parcels';
 
 const Parcel = {
   /**
@@ -11,8 +13,19 @@ const Parcel = {
     if (!req.body.from || !req.body.destination || !req.body.weight) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const parcel = ParcelModel.create(req.body);
-    return res.status(201).send(parcel);
+    const { from, destination, weight } = req.body;
+    const newParcel = {
+      id: uuid.v4(),
+      from,
+      destination,
+      price: weight * 450,
+      createdDate: moment.now(),
+      owner: uuid.v4(),
+      presentLocation: from,
+      weight,
+    };
+    Parcels.push(newParcel);
+    return res.status(201).send(newParcel);
   },
   /**
    *
@@ -21,7 +34,7 @@ const Parcel = {
    * @returns {object} parcels array
    */
   getAll(req, res) {
-    const parcels = ParcelModel.findAll();
+    const parcels = Parcels;
     return res.status(200).send(parcels);
   },
   /**
@@ -31,40 +44,12 @@ const Parcel = {
    * @returns {object} parcel object
    */
   getOne(req, res) {
-    const parcel = ParcelModel.findOne(req.params.id);
-    if (!parcel) {
+    const oneParcel = Parcels.find(parcel => parcel.id === req.params.id);
+    if (!oneParcel) {
       return res.status(404).send({ message: 'parcel not found' });
     }
-    return res.status(200).send(parcel);
+    return res.status(200).send(oneParcel);
   },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} updated parcel
-   */
-  update(req, res) {
-    const parcel = ParcelModel.findOne(req.params.id);
-    if (!parcel) {
-      return res.status(404).send({ message: 'parcel not found' });
-    }
-    const updatedParcel = ParcelModel.update(req.params.id, req.body);
-    return res.status(200).send(updatedParcel);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {void} return status code 204
-   */
-  delete(req, res) {
-    const parcel = ParcelModel.findOne(req.params.id);
-    if (!parcel) {
-      return res.status(404).send({ message: 'parcel not found' });
-    }
-    const ref = ParcelModel.delete(req.params.id);
-    return res.status(204).send(ref);
-  }
 };
 
 export default Parcel;
