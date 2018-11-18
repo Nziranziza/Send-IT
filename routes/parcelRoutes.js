@@ -10,4 +10,7 @@ router.route('/')
 
 /* Fetch a specific parcel delivery order */
 router.get('/:id', parcelController.getOne);
+
+/* Cancel the specific parcel delivery order */
+router.put('/:id/cancel', parcelController.cancel);
 export default router;

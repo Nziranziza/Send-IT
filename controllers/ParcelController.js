@@ -62,6 +62,21 @@ const Parcel = {
     }
     return res.status(200).send(parcels);
   },
+  /**
+   *
+   *  @param {uuid} req
+   *  @param {object} res
+   *  @returns {object} status code
+   */
+  cancel(req, res) {
+    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
+    if (!targetParcel) {
+      return res.status(404).send({ message: 'parcel not found' });
+    }
+    const index = Parcels.indexOf(targetParcel);
+    Parcels[index].status = 'canceled';
+    return res.status(200).send(Parcels[index]);
+  }
 };
 
 export default Parcel;
