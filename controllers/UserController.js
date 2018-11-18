@@ -27,5 +27,15 @@ const User = {
     Users.push(newUser);
     return res.status(201).send(newUser);
   },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} users array
+   */
+  getAll(req, res) {
+    const users = Users;
+    return res.status(200).send(users);
+  },
 };
 export default User;

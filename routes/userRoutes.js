@@ -7,8 +7,9 @@ const router = express.Router();
 /* Fetch all parcel delivery orders by a specific user */
 router.get('/:id/parcels', parcelController.getAllForUser);
 
-/* Create a user account */
+/* Create a user account and fetch all users */
 router.route('/')
-  .post(userController.create);
+  .post(userController.create)
+  .get(userController.getAll);
 
 export default router;

@@ -292,4 +292,15 @@ describe('api routes for user', () => {
         done();
       });
   });
+  // Testing for fetch all users
+  it('it should get all users', (done) => {
+    chai.request(app)
+      .get('/api/v1/users')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        res.body.length.should.be.eql(4);
+        done();
+      });
+  });
 });
