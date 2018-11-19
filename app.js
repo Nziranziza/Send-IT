@@ -1,24 +1,18 @@
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import Debug from 'debug';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
-import favicon from 'serve-favicon';
+// import favicon from 'serve-favicon';
 
 // importing routes
-import index from './routes/index';
-import parcelRoutes from './routes/parcelRoutes';
-import userRoutes from './routes/userRoutes';
+import parcelRoutes from './server/routes/parcelRoutes';
+import userRoutes from './server/routes/userRoutes';
 
 
 const app = express();
-const debug = Debug('send-it:app');
-app.set('views', path.join(__dirname, 'views'));
-// view engine setup
-app.set('view engine', 'pug');
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -30,7 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Defining routes
-app.use('/', index);
 app.use('/api/v1/parcels', parcelRoutes);
 app.use('/api/v1/users', userRoutes);
 // catch 404 and forward to error handler
@@ -50,11 +43,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// // Handle uncaughtException
-// process.on('uncaughtException', (err) => {
-//   debug('Caught exception: %j', err);
-//   process.exit(1);
-// });
+const port = process.env.PORT || 3000;
+app.listen(port);
 
 export default app;

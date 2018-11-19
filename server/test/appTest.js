@@ -1,92 +1,17 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
-import app from '../app';
+import app from '../../app';
 
 chai.should();
 chai.use(chaiHttp);
-
-/* Test the /GET route */
-describe('app index route', () => {
-  it('it should GET Home page', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET Login Page', (done) => {
-    chai.request(app)
-      .get('/login')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET Contact us Page', (done) => {
-    chai.request(app)
-      .get('/contact-us')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET Sing up Page ', (done) => {
-    chai.request(app)
-      .get('/sign-up')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET About us Page ', (done) => {
-    chai.request(app)
-      .get('/about-us')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET Admin Dashboard Page ', (done) => {
-    chai.request(app)
-      .get('/admin-dashboard')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should GET User Dashboard Page ', (done) => {
-    chai.request(app)
-      .get('/user-dashboard')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
-
-  it('it should handle 404 error', (done) => {
-    chai.request(app)
-      .get('/notExist')
-      .end((err, res) => {
-        res.should.have.status(404);
-        done();
-      });
-  });
-  it('it should get API Home page', (done) => {
-    chai.request(app)
-      .get('/api/v1')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
+// Test error 404
+describe('Error 404 test', () => {
+  chai.request(app)
+    .get('/notexist')
+    .end((err, res) => {
+      res.should.have.status(404);
+    });
 });
 describe('Parcels Routes Test', () => {
   // Testing create parcel endpoint
@@ -271,8 +196,8 @@ describe('api routes for user', () => {
   // Testing for create user
   it('it should create user account', (done) => {
     const data = {
-      firstname: 'Clet',
-      lastname: 'Mwunguzi',
+      firstName: 'Clet',
+      lastName: 'Mwunguzi',
       email: 'clet@gmail.com',
       password: '1234567890'
     };
@@ -283,20 +208,20 @@ describe('api routes for user', () => {
         res.should.have.status(201);
         res.body.should.be.a('object');
         res.body.should.have.property('id');
-        res.body.should.have.property('firstname').eql('Clet');
-        res.body.should.have.property('lastname').eql('Mwunguzi');
+        res.body.should.have.property('firstName').eql('Clet');
+        res.body.should.have.property('lastName').eql('Mwunguzi');
         res.body.should.have.property('email').eql('clet@gmail.com');
         res.body.should.have.property('password').eql('1234567890');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('username').eql('CletMwunguzi');
+        res.body.should.have.property('userName').eql('CletMwunguzi');
         res.body.should.have.property('isloggedin').eql(true);
         done();
       });
   });
   it('it should not create user account', (done) => {
     const data = {
-      firstname: 'Clet',
-      lastname: 'Mwunguzi',
+      firstName: 'Clet',
+      lastName: 'Mwunguzi',
       email: 'clet@gmail.com',
     };
     chai.request(app)
@@ -328,12 +253,12 @@ describe('api routes for user', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
-        res.body.should.have.property('firstname').eql('Daniel');
-        res.body.should.have.property('lastname').eql('Nziranziza');
+        res.body.should.have.property('firstName').eql('Daniel');
+        res.body.should.have.property('lastName').eql('Nziranziza');
         res.body.should.have.property('email').eql('nziranzizadaniel@gmail.com');
         res.body.should.have.property('password').eql('123456789');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('userName').eql('Daniel');
         res.body.should.have.property('isloggedin').eql(false);
         done();
       });
@@ -398,20 +323,20 @@ describe('api routes for user', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
-        res.body.should.have.property('firstname').eql('Daniel');
-        res.body.should.have.property('lastname').eql('Nziranziza');
+        res.body.should.have.property('firstName').eql('Daniel');
+        res.body.should.have.property('lastName').eql('Nziranziza');
         res.body.should.have.property('email').eql('nziranzizadaniel@gmail.com');
         res.body.should.have.property('password').eql('123456789');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('userName').eql('Daniel');
         res.body.should.have.property('isloggedin').eql(false);
         done();
       });
   });
   it('it should update user profile', (done) => {
     const data = {
-      firstname: 'Dan',
-      lastname: 'Bryan',
+      firstName: 'Dan',
+      lastName: 'Bryan',
       email: 'danbryan@gmail.com'
     };
     chai.request(app)
@@ -421,20 +346,20 @@ describe('api routes for user', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
-        res.body.should.have.property('firstname').eql('Dan');
-        res.body.should.have.property('lastname').eql('Bryan');
+        res.body.should.have.property('firstName').eql('Dan');
+        res.body.should.have.property('lastName').eql('Bryan');
         res.body.should.have.property('email').eql('danbryan@gmail.com');
         res.body.should.have.property('password').eql('123456789');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('userName').eql('Daniel');
         res.body.should.have.property('isloggedin').eql(false);
         done();
       });
   });
   it('it should not update user profile', (done) => {
     const data = {
-      firstname: 'Dan',
-      lastname: 'Bryan',
+      firstName: 'Dan',
+      lastName: 'Bryan',
       email: 'danbryan@gmail.com'
     };
     chai.request(app)
