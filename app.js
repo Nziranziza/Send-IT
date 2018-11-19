@@ -8,7 +8,9 @@ import favicon from 'serve-favicon';
 
 // importing routes
 import index from './routes/index';
-import api from './routes/api';
+import parcelRoutes from './routes/parcelRoutes';
+import userRoutes from './routes/userRoutes';
+
 
 const app = express();
 const debug = Debug('send-it:app');
@@ -29,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Defining routes
 app.use('/', index);
-app.use('/api/v1', api);
-
+app.use('/api/v1/parcels', parcelRoutes);
+app.use('/api/v1/users', userRoutes);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -49,10 +51,10 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-// Handle uncaughtException
-process.on('uncaughtException', (err) => {
-  debug('Caught exception: %j', err);
-  process.exit(1);
-});
+// // Handle uncaughtException
+// process.on('uncaughtException', (err) => {
+//   debug('Caught exception: %j', err);
+//   process.exit(1);
+// });
 
 export default app;

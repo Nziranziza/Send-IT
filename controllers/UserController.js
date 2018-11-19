@@ -1,4 +1,6 @@
-import UserModel from '../models/UserModel';
+import moment from 'moment';
+import uuid from 'uuid';
+import Users from '../data/Users';
 
 const User = {
   /**
@@ -8,11 +10,22 @@ const User = {
    * @returns {object} user object
    */
   create(req, res) {
-    if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
+    const { firstname, lastname, email, password, username } = req.body;
+    if (!firstname || !lastname || !email || !password) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const user = UserModel.create(req.body);
-    return res.status(201).send(user);
+    const newUser = {
+      id: uuid.v4(),
+      firstname,
+      lastname,
+      email,
+      createdDate: moment.now(),
+      password,
+      username: username || firstname + lastname,
+      isloggedin: true
+    };
+    Users.push(newUser);
+    return res.status(201).send(newUser);
   },
   /**
    *
@@ -21,7 +34,7 @@ const User = {
    * @returns {object} users array
    */
   getAll(req, res) {
-    const users = UserModel.findAll();
+    const users = Users;
     return res.status(200).send(users);
   },
   /**
@@ -31,39 +44,11 @@ const User = {
    * @returns {object} user object
    */
   getOne(req, res) {
-    const user = UserModel.findOne(req.params.id);
-    if (!user) {
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
       return res.status(404).send({ message: 'user not found' });
     }
-    return res.status(200).send(user);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} updated user
-   */
-  update(req, res) {
-    const user = UserModel.findOne(req.params.id);
-    if (!user) {
-      return res.status(404).send({ message: 'user not found' });
-    }
-    const updatedUser = UserModel.update(req.params.id, req.body);
-    return res.status(200).send(updatedUser);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {void} return status code 204
-   */
-  deleteUser(req, res) {
-    const user = UserModel.findOne(req.params.id);
-    if (!user) {
-      return res.status(404).send({ message: 'user not found' });
-    }
-    const ref = UserModel.delete(req.params.id);
-    return res.status(201).send(ref);
+    return res.status(200).send(targetUser);
   },
   /**
    *
@@ -72,11 +57,14 @@ const User = {
    * @returns {object} user object
    */
   signin(req, res) {
-    const user = UserModel.findUser(req.body);
-    if (!user) {
+    const { email, password } = req.body;
+    const targetUser = Users.find(user => user.email === email && user.password === password);
+    if (!targetUser) {
       return res.status(404).send({ message: 'user not found' });
     }
-    const activeUser = UserModel.login(user);
+    const index = Users.indexOf(targetUser);
+    Users[index].isloggedin = true;
+    const activeUser = Users[index];
     return res.status(200).send(activeUser);
   },
   /**
@@ -86,13 +74,48 @@ const User = {
    *
    */
   signout(req, res) {
-    const activeUser = UserModel.isloggedin();
+    const activeUser = Users.find(user => user.isloggedin === true);
     if (!activeUser) {
       return res.status(404).send({ message: ' u are not logged in' });
     }
-    const passiveUser = UserModel.logout(activeUser);
+    const index = Users.indexOf(activeUser);
+    Users[index].isloggedin = false;
+    const passiveUser = Users[index];
     return res.status(200).send(passiveUser);
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} updated user
+   */
+  update(req, res) {
+    const { firstname, lastname, email } = req.body;
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const index = Users.indexOf(targetUser);
+    Users[index].firstname = firstname || targetUser.firstname;
+    Users[index].lastname = lastname || targetUser.lastname;
+    Users[index].email = email || targetUser.email;
+    const updatedUser = Users[index];
+    return res.status(200).send(updatedUser);
+  },
+  /**
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
+   */
+  deleteUser(req, res) {
+    const targetUser = Users.find(user => req.params.id === user.id);
+    if (!targetUser) {
+      return res.status(404).send({ message: 'user not found' });
+    }
+    const index = Users.indexOf(targetUser);
+    Users.splice(index, 1);
+    return res.status(201).send({ message: 'user was deleted successfully!!!' });
   }
 };
-
 export default User;

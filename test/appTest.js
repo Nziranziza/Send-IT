@@ -79,8 +79,7 @@ describe('app index route', () => {
         done();
       });
   });
-
-  it('it should handle 404 error', (done) => {
+  it('it should get API Home page', (done) => {
     chai.request(app)
       .get('/api/v1')
       .end((err, res) => {
@@ -88,23 +87,14 @@ describe('app index route', () => {
         done();
       });
   });
-
 });
-describe('app api route for parcel delivery order', () => {
-  it('it should GET all parcels', (done) => {
-    chai.request(app)
-      .get('/api/v1/parcels')
-      .end((err, res) => {
-        res.should.have.status(200);
-        done();
-      });
-  });
+describe('Parcels Routes Test', () => {
   // Testing create parcel endpoint
   it('it should create parcel', (done) => {
     const data = {
       from: 'Muhanga',
       destination: 'Kigali',
-      weight: '23'
+      weight: 23
     };
     chai.request(app)
       .post('/api/v1/parcels')
@@ -118,8 +108,8 @@ describe('app api route for parcel delivery order', () => {
         res.body.should.have.property('owner');
         res.body.should.have.property('presentLocation').eql('Muhanga');
         res.body.should.have.property('createdDate');
-        res.body.should.have.property('weight').eql('23');
-        res.body.should.have.property('price').eql(11500);
+        res.body.should.have.property('weight').eql(23);
+        res.body.should.have.property('price').eql(10350);
         done();
       });
   });
@@ -269,6 +259,15 @@ describe('app api route for parcel delivery order', () => {
 });
 // User route test
 describe('api routes for user', () => {
+  // Test for logout account
+  it('it should not logout user account', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/logout')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
   // Testing for create user
   it('it should create user account', (done) => {
     const data = {
@@ -335,7 +334,7 @@ describe('api routes for user', () => {
         res.body.should.have.property('password').eql('123456789');
         res.body.should.have.property('createdDate');
         res.body.should.have.property('username').eql('Daniel');
-        res.body.should.have.property('isloggedin').eql(true);
+        res.body.should.have.property('isloggedin').eql(false);
         done();
       });
   });
@@ -380,7 +379,6 @@ describe('api routes for user', () => {
         done();
       });
   });
-  // Testing logout
   it('it should logout user account', (done) => {
     chai.request(app)
       .put('/api/v1/users/logout')
@@ -393,6 +391,23 @@ describe('api routes for user', () => {
       });
   });
   // Testing for updating user account
+  it('it should update user profile', (done) => {
+    chai.request(app)
+      .put('/api/v1/users/dc20098c-a5a2-4694-8379-62d41ca03341/update-profile')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id').eql('dc20098c-a5a2-4694-8379-62d41ca03341');
+        res.body.should.have.property('firstname').eql('Daniel');
+        res.body.should.have.property('lastname').eql('Nziranziza');
+        res.body.should.have.property('email').eql('nziranzizadaniel@gmail.com');
+        res.body.should.have.property('password').eql('123456789');
+        res.body.should.have.property('createdDate');
+        res.body.should.have.property('username').eql('Daniel');
+        res.body.should.have.property('isloggedin').eql(false);
+        done();
+      });
+  });
   it('it should update user profile', (done) => {
     const data = {
       firstname: 'Dan',

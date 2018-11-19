@@ -36,4 +36,8 @@ router.get('/user-dashboard', (req, res) => {
 router.get('/admin-dashboard', (req, res) => {
   res.render('admin');
 });
+// API HOMEPAGE
+router.get('/api/v1', (req, res) => {
+  res.render('api');
+});
 export default router;
