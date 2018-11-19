@@ -4,35 +4,32 @@ import uuid from 'uuid';
 const Users = [
   {
     id: 'dc20098c-a5a2-4694-8379-62d41ca03341',
-    firstname: 'Daniel',
-    lastname: 'Nziranziza',
+    firstName: 'Daniel',
+    lastName: 'Nziranziza',
     email: 'nziranzizadaniel@gmail.com',
-    confemail: 'nziranzizadaniel@gmail.com',
     createdDate: moment.now(),
     password: '123456789',
-    username: 'Daniel',
+    userName: 'Daniel',
     isloggedin: false
   },
   {
     id: uuid.v4(),
-    firstname: 'Jennah',
-    lastname: 'Haque',
+    firstName: 'Jennah',
+    lastName: 'Haque',
     email: 'jhaque@gmail.com',
-    confemail: 'jhaque@gmail.com',
     createdDate: moment.now(),
     password: '123456789',
-    username: 'Jennah',
+    userName: 'Jennah',
     isloggedin: false
   },
   {
     id: uuid.v4(),
-    firstname: 'Mucyo',
-    lastname: 'Elie',
+    firstName: 'Mucyo',
+    lastName: 'Elie',
     email: 'mucyoelie@gmail.com',
-    confemail: 'mucyoelie@gmail.com',
     createdDate: moment.now(),
     password: '123456789',
-    username: 'Mucyo',
+    userName: 'Mucyo',
     isloggedin: false
   }
 ];

@@ -10,18 +10,18 @@ const User = {
    * @returns {object} user object
    */
   create(req, res) {
-    const { firstname, lastname, email, password, username } = req.body;
-    if (!firstname || !lastname || !email || !password) {
+    const { firstName, lastName, email, password, userName } = req.body;
+    if (!firstName || !lastName || !email || !password) {
       return res.status(400).send({ message: 'All fields are required' });
     }
     const newUser = {
       id: uuid.v4(),
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       createdDate: moment.now(),
       password,
-      username: username || firstname + lastname,
+      userName: userName || `${firstName}${lastName}`,
       isloggedin: true
     };
     Users.push(newUser);
@@ -34,8 +34,7 @@ const User = {
    * @returns {object} users array
    */
   getAll(req, res) {
-    const users = Users;
-    return res.status(200).send(users);
+    return res.status(200).send(Users);
   },
   /**
    *
@@ -90,14 +89,14 @@ const User = {
    * @returns {object} updated user
    */
   update(req, res) {
-    const { firstname, lastname, email } = req.body;
+    const { firstName, lastName, email } = req.body;
     const targetUser = Users.find(user => req.params.id === user.id);
     if (!targetUser) {
       return res.status(404).send({ message: 'user not found' });
     }
     const index = Users.indexOf(targetUser);
-    Users[index].firstname = firstname || targetUser.firstname;
-    Users[index].lastname = lastname || targetUser.lastname;
+    Users[index].firstName = firstName || targetUser.firstName;
+    Users[index].lastName = lastName || targetUser.lastName;
     Users[index].email = email || targetUser.email;
     const updatedUser = Users[index];
     return res.status(200).send(updatedUser);
