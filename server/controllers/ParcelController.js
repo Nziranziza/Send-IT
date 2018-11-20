@@ -34,8 +34,7 @@ const Parcel = {
    * @returns {object} parcels array
    */
   getAll(req, res) {
-    const parcels = Parcels;
-    return res.status(200).send(parcels);
+    return res.status(200).send(Parcels);
   },
   /**
    *
