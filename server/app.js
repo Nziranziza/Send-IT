@@ -6,8 +6,8 @@ import path from 'path';
 // import favicon from 'serve-favicon';
 
 // importing routes
-import parcelRoutes from './server/routes/parcelRoutes';
-import userRoutes from './server/routes/userRoutes';
+import parcelRoutes from './routes/parcelRoutes';
+import userRoutes from './routes/userRoutes';
 
 
 const app = express();
