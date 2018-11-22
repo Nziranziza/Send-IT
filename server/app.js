@@ -3,15 +3,10 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
-// import favicon from 'serve-favicon';
-
-// importing routes
-import parcelRoutes from './routes/parcelRoutes';
-import userRoutes from './routes/userRoutes';
-
+import 'dotenv/config';
+import Database from './db/database';
 
 const app = express();
-
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -23,9 +18,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Defining routes
-app.use('/api/v1/parcels', parcelRoutes);
-app.use('/api/v1/users', userRoutes);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
