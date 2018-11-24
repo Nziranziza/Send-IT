@@ -66,4 +66,31 @@ describe('Parcel Routes Test', () => {
         done();
       });
   });
+  // Testing getting one parcel delivery order
+  it('it should get one parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels/62cef386-6c2c-4b29-b1b1-1842b115a4c3')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('origin');
+        res.body.should.have.property('destination');
+        res.body.should.have.property('owner_id');
+        res.body.should.have.property('present_location');
+        res.body.should.have.property('created_date');
+        res.body.should.have.property('weight');
+        done();
+      });
+  });
+  it('it should not get parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels/dc20098c-a5a2-4694-8379-62d41ca03341')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
 });

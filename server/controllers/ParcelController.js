@@ -31,5 +31,12 @@ const Parcel = {
     const { rows } = await Database.execute(selectAllParcels);
     return res.status(200).send(rows);
   },
+  async getOne(req, res) {
+    const selectOneParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    const id = req.params.id;
+    const { rows } = await Database.execute(selectOneParcel, [id]);
+    if (rows.length) return res.status(200).send(rows[0]);
+    return res.status(404).send({ message: 'parcel not found' });
+  }
 };
 export default Parcel;

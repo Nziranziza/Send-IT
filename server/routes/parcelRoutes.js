@@ -7,4 +7,5 @@ const router = express.Router();
 router.route('/')
   .post(parcelController.create)
   .get(parcelController.getAll);
+router.get('/:id', parcelController.getOne);
 export default router;
