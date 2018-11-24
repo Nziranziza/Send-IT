@@ -1,0 +1,69 @@
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import 'babel-polyfill';
+
+import app from '../app';
+
+chai.should();
+chai.use(chaiHttp);
+// Test error 404
+describe('Error 404 test', () => {
+  it('it should handle error 404', (done) => {
+    chai.request(app)
+      .get('/notexist')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+});
+// Testing create parcel
+describe('Parcel Routes Test', () => {
+  it('it should create parcel', (done) => {
+    const data = {
+      from: 'Muhanga',
+      destination: 'Kigali',
+      weight: 23
+    };
+    chai.request(app)
+      .post('/api/v1/parcels')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.have.property('id');
+        res.body.should.have.property('origin').eql('Muhanga');
+        res.body.should.have.property('destination').eql('Kigali');
+        res.body.should.have.property('owner_id');
+        res.body.should.have.property('present_location').eql('Muhanga');
+        res.body.should.have.property('created_date');
+        res.body.should.have.property('weight').eql(23);
+        res.body.should.have.property('price').eql(10350);
+        done();
+      });
+  });
+  it('it should not create parcel', (done) => {
+    const data = {
+      from: 'Muhanga',
+      destination: 'Kigali'
+    };
+    chai.request(app)
+      .post('/api/v1/parcels')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('All fields are required');
+        done();
+      });
+  });
+  // Testing getting all parcel delivery order
+  it('it should get all parcel', (done) => {
+    chai.request(app)
+      .get('/api/v1/parcels')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        done();
+      });
+  });
+});

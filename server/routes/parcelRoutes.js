@@ -5,5 +5,6 @@ const router = express.Router();
 
 /* Create a parcel delivery order */
 router.route('/')
-  .post(parcelController.create);
+  .post(parcelController.create)
+  .get(parcelController.getAll);
 export default router;
