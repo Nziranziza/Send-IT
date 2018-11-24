@@ -4,6 +4,7 @@ import express from 'express';
 import logger from 'morgan';
 import path from 'path';
 import 'dotenv/config';
+import parcelRoutes from './routes/parcelRoutes';
 import Database from './db/database';
 
 const app = express();
@@ -18,6 +19,8 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Defining routes
+app.use('/api/v1/parcels', parcelRoutes);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
