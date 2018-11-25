@@ -93,4 +93,39 @@ describe('Parcel Routes Test', () => {
         done();
       });
   });
+  // Testing Change Present Location
+  it('it should change present location', (done) => {
+    const data = {
+      location: 'Australia'
+    };
+    chai.request(app)
+      .put('/api/v1/parcels/62cef386-6c2c-4b29-b1b1-1842b115a4c3/change-location')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('origin');
+        res.body.should.have.property('destination');
+        res.body.should.have.property('owner_id');
+        res.body.should.have.property('present_location').eql('Australia');
+        res.body.should.have.property('created_date');
+        res.body.should.have.property('weight');
+        done();
+      });
+  });
+  it('it should not change present location', (done) => {
+    const data = {
+      location: 'Australia'
+    };
+    chai.request(app)
+      .put('/api/v1/parcels/62cef386-6c2c-4b29-b1b1-1842b115a4c5/change-location')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('parcel not found');
+        done();
+      });
+  });
 });

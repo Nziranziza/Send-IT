@@ -8,4 +8,5 @@ router.route('/')
   .post(parcelController.create)
   .get(parcelController.getAll);
 router.get('/:id', parcelController.getOne);
+router.put('/:id/change-location', parcelController.changePresentLocation);
 export default router;
