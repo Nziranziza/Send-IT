@@ -9,4 +9,5 @@ router.route('/')
   .get(parcelController.getAll);
 router.get('/:id', parcelController.getOne);
 router.put('/:id/change-location', parcelController.changePresentLocation);
+router.put('/:id/change-destination', parcelController.changeDestination);
 export default router;
