@@ -3,11 +3,12 @@ import parcelController from '../controllers/ParcelController';
 
 const router = express.Router();
 
-/* Create a parcel delivery order */
+/* Create and fetch parcel delivery order(s) */
 router.route('/')
   .post(parcelController.create)
   .get(parcelController.getAll);
 router.get('/:id', parcelController.getOne);
-router.put('/:id/change-location', parcelController.changePresentLocation);
-router.put('/:id/change-destination', parcelController.changeDestination);
+router.put('/:id/presentLocation', parcelController.changePresentLocation);
+router.put('/:id/destination', parcelController.changeDestination);
+router.put('/:id/status', parcelController.changeStatus);
 export default router;

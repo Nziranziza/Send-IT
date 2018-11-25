@@ -53,6 +53,14 @@ const Parcel = {
     const { rows } = await Database.execute(changeDestination, [destination, id]);
     if (rows[0]) return res.status(201).send(rows[0]);
     return res.status(404).send({ message: 'parcel not found' });
+  },
+  async changeStatus(req, res) {
+    const changeStatus = 'UPDATE parcel_table SET status = $1 WHERE id = $2 RETURNING *';
+    const id = req.params.id;
+    const status = req.body.status;
+    const { rows } = await Database.execute(changeStatus, [status, id]);
+    if (rows[0]) return res.status(201).send(rows[0]);
+    return res.status(404).send({ message: 'parcel not found' });
   }
 };
 export default Parcel;
