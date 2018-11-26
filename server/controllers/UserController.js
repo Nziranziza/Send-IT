@@ -25,5 +25,18 @@ const User = {
     const { rows } = await Database.execute(createUser, newUser);
     return res.status(201).send(rows[0]);
   },
+  async login(req, res) {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).send({ message: 'All fields are required' });
+    }
+    const findUser = 'SELECT * FROM user_table WHERE email = $1';
+    const { rows } = await Database.execute(findUser, [email]);
+    if (!rows) return res.status(404).send({ message: 'user not found' });
+    if (!helper.checkThepassword(rows[0].password, password)) {
+      return res.status(400).send({ message: 'The password is incorrect!!!' });
+    }
+    return res.status(200).send(rows[0]);
+  }
 };
 export default User;
