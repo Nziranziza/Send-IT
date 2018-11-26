@@ -10,11 +10,11 @@ class Database {
     `
     CREATE TABLE IF NOT EXISTS user_table (
       id UUID PRIMARY KEY,
-      first_name VARCHAR(20) NOT NULL,
-      last_name VARCHAR(20) NOT NULL,
-      email VARCHAR(20) NOT NULL,
-      password VARCHAR(20) NOT NULL,
-      username VARCHAR(20),
+      first_name VARCHAR(128) NOT NULL,
+      last_name VARCHAR(128) NOT NULL,
+      email VARCHAR(128) NOT NULL,
+      password VARCHAR(128) NOT NULL,
+      username VARCHAR(128),
       isloggedin BOOLEAN,
       created_date DATE
     )`;
@@ -23,14 +23,14 @@ class Database {
     `
     CREATE TABLE IF NOT EXISTS parcel_table (
       id UUID PRIMARY KEY,
-      origin VARCHAR(20) NOT NULL,
-      destination VARCHAR(20) NOT NULL,
+      origin VARCHAR(128) NOT NULL,
+      destination VARCHAR(128) NOT NULL,
       owner_id UUID REFERENCES user_table (id) ON DELETE CASCADE,
       created_date DATE, 
       price INT,
-      present_location VARCHAR(20),
+      present_location VARCHAR(128),
       weight INT NOT NULL,
-      status VARCHAR(20)
+      status VARCHAR(128)
     )`;
   async execute(sql, data = []) {
     const connection = await this.connect();

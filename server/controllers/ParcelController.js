@@ -4,11 +4,10 @@ import Database from '../db/database';
 const Parcel = {
 
   async create(req, res) {
-    if (!req.body.from || !req.body.destination || !req.body.weight) {
+    const { from, destination, weight } = req.body;
+    if (!from || !destination || !weight) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const { from, destination, weight } = req.body;
-
     const createParcel = `INSERT INTO parcel_table
                           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                           RETURNING *`;

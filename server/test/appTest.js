@@ -199,3 +199,47 @@ describe('Parcel Routes Test', () => {
       });
   });
 });
+// User route test
+describe('api routes for user', () => {
+  // Testing for create user
+  it('it should create user account', (done) => {
+    const data = {
+      firstName: 'Clet',
+      lastName: 'Mwunguzi',
+      email: 'clet@gmail.com',
+      password: '1234567890'
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('first_name').eql('Clet');
+        res.body.should.have.property('last_name').eql('Mwunguzi');
+        res.body.should.have.property('email').eql('clet@gmail.com');
+        res.body.should.have.property('password');
+        res.body.should.have.property('created_date');
+        res.body.should.have.property('username').eql('CletMwunguzi');
+        res.body.should.have.property('isloggedin').eql(true);
+        done();
+      });
+  });
+  it('it should not create user account', (done) => {
+    const data = {
+      firstName: 'Clet',
+      lastName: 'Mwunguzi',
+      email: 'clet@gmail.com',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(data)
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.be.a('object');
+        res.body.should.have.property('message').eql('All fields are required');
+        done();
+      });
+  });
+});
