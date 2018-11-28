@@ -1,4 +1,6 @@
 import { Pool } from 'pg';
+import uuid from 'uuid';
+import helper from '../helper/helper';
 
 class Database {
   constructor() {
@@ -6,6 +8,7 @@ class Database {
     this.connect = async () => this.pool.connect();
     this.initialize();
   }
+
    createUserTable =
     `
     CREATE TABLE IF NOT EXISTS user_table (
@@ -15,7 +18,7 @@ class Database {
       email VARCHAR(128) NOT NULL,
       password VARCHAR(128) NOT NULL,
       username VARCHAR(128),
-      isloggedin BOOLEAN,
+      role VARCHAR(20),
       created_date DATE
     )`;
 
@@ -32,22 +35,43 @@ class Database {
       weight INT NOT NULL,
       status VARCHAR(128)
     )`;
-  async execute(sql, data = []) {
-    const connection = await this.connect();
 
-    try {
-      if (data.length) return await connection.query(sql, data);
-      return await connection.query(sql);
-    } catch (error) {
-      throw error;
-    } finally {
-      connection.release();
+    createAdminUser =`
+      INSERT INTO user_table
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      `;
+    async execute(sql, data = []) {
+      const connection = await this.connect();
+
+      try {
+        if (data.length) return await connection.query(sql, data);
+        return await connection.query(sql);
+      } catch (error) {
+        return error;
+      } finally {
+        connection.release();
+      }
     }
-  }
-  async initialize() {
-    await this.execute(this.createUserTable);
-    this.execute(this.createParcelTable);
-  }
+    async createAdmin() {
+      const { rows } = await this.execute('SELECT * FROM user_table WHERE role = $1', ['Admin']);
+      if (!rows[0]) {
+        this.execute(this.createAdminUser, [
+          uuid.v4(),
+          'Admin',
+          'Sendit',
+          'admin@sendit.com',
+          helper.hashThePassword('admin'),
+          'Admin',
+          'Admin',
+          new Date()
+        ]);
+      }
+    }
+    async initialize() {
+      await this.execute(this.createUserTable);
+      await this.execute(this.createParcelTable);
+      this.createAdmin();
+    }
 }
 
 export default new Database();

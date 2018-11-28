@@ -3,6 +3,7 @@ import Database from '../db/database';
 import helper from '../helper/helper';
 
 const User = {
+  // create user account
   async create(req, res) {
     const { firstName, lastName, email, password, userName } = req.body;
     if (!firstName || !lastName || !email || !password) {
@@ -19,12 +20,14 @@ const User = {
       email,
       hashPassword,
       userName || `${firstName}${lastName}`,
-      true,
+      'user',
       new Date()
     ];
+    const token = helper.getToken(newUser[0], newUser[6]);
     const { rows } = await Database.execute(createUser, newUser);
-    return res.status(201).send(rows[0]);
+    return res.status(201).send({ user: rows[0], token });
   },
+  // login a user account
   async login(req, res) {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -36,7 +39,8 @@ const User = {
     if (!helper.checkThepassword(rows[0].password, password)) {
       return res.status(400).send({ message: 'The password is incorrect!!!' });
     }
-    return res.status(200).send(rows[0]);
+    const token = helper.getToken(rows[0].id, rows[0].role);
+    return res.status(200).send({ user: rows[0], token });
   }
 };
 export default User;
