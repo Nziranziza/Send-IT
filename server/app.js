@@ -3,11 +3,13 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import parcelRoutes from './routes/parcelRoutes';
 import auth from './routes/auth';
+import userRoutes from './routes/userRoutes';
 import './db/database';
 
+dotenv.config();
 const app = express();
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -23,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Defining routes
 app.use('/api/v1/parcels', parcelRoutes);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/users', userRoutes);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -39,7 +42,13 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.send({
-    message: 'The resource you\'re trying to get is not found'
+    message: 'The resource you\'re trying to get is not found',
+    try: 'Something like this',
+    POST_auth_signup: 'api/v1/auth/signup register a user',
+    POST_auth_login: 'api/v1/auth/login login a user',
+    PUT_destination: 'api/vi/<parcelid>/destination',
+    PUT_status: 'api/v1/<parcelid>/status',
+    PUT_presentLocation: 'api/v1/<parcelid>/presentLocation',
   });
 });
 const port = process.env.PORT || 3000;

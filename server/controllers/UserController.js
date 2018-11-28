@@ -4,6 +4,12 @@ import helper from '../helper/helper';
 
 const User = {
   // create user account
+  /**
+   *
+   * @param {*} req user data
+   * @param {*} res
+   * @returns user object
+   */
   async create(req, res) {
     const { firstName, lastName, email, password, userName } = req.body;
     if (!firstName || !lastName || !email || !password) {
@@ -24,10 +30,20 @@ const User = {
       new Date()
     ];
     const token = helper.getToken(newUser[0], newUser[6]);
-    const { rows } = await Database.execute(createUser, newUser);
-    return res.status(201).send({ user: rows[0], token });
+    try {
+      const { rows } = await Database.execute(createUser, newUser);
+      return res.status(201).send({ user: rows[0], token });
+    } catch (error) {
+      return res.status(400).send(error);
+    }
   },
   // login a user account
+  /**
+   *
+   * @param {*} req object{ email,password }
+   * @param {*} res
+   * @retuns user object
+   */
   async login(req, res) {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -36,11 +52,49 @@ const User = {
     const findUser = 'SELECT * FROM user_table WHERE email = $1';
     const { rows } = await Database.execute(findUser, [email]);
     if (!rows) return res.status(404).send({ message: 'user not found' });
+    if (!rows[0]) return res.status(404).send({ message: 'user not found' });
     if (!helper.checkThepassword(rows[0].password, password)) {
       return res.status(400).send({ message: 'The password is incorrect!!!' });
     }
     const token = helper.getToken(rows[0].id, rows[0].role);
     return res.status(200).send({ user: rows[0], token });
-  }
+  },
+  // Get all user
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns user array
+   */
+  async getAllUser(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
+    try {
+      const getAllUser = 'SELECT * FROM user_table';
+      const { rows } = await Database.execute(getAllUser);
+      if (!rows[0]) return res.status(404).send('users not found');
+      return res.status(200).send(rows[0]);
+    } catch (error) {
+      return res.status(408).send({ message: 'OOPS!!! Something goes wrong!!!' });
+    }
+  },
+  // Get one user
+  /**
+   * 
+   * @param {*} req user id
+   * @param {*} res
+   * @returns user object
+   */
+  async getOneUser(req, res) {
+   if(req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
+   try{
+     const getOneUser = 'SELECT * FROM user_table WHERE id = $1';
+     const id = req.params.id;
+     const { rows } = await Database.execute(getOneUser, [id]);
+     if(!rows[0]) return res.status(404).send({ message : 'user not found'});
+     return res.status(200).send(rows[0]);
+   } catch(error) {
+     return res.status(408).send({message :'OOPS!!! something goes wrong!!!'});
+   }
+ }
 };
 export default User;
