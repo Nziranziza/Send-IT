@@ -11,7 +11,7 @@ router.route('/')
 // Get one parcel by id
 router.get('/:id', parcelController.getOne);
 // Change present location only by Admin
-router.put('/:id/presentLocation', parcelController.changePresentLocation);
+router.put('/:id/presentLocation', helper.verifyToken, parcelController.changePresentLocation);
 // change destination by user who created the parcel
 router.put('/:id/destination', helper.verifyToken, parcelController.changeDestination);
 // change the status only by the admin

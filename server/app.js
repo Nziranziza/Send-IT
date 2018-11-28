@@ -3,11 +3,12 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import parcelRoutes from './routes/parcelRoutes';
 import auth from './routes/auth';
 import './db/database';
 
+dotenv.config();
 const app = express();
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

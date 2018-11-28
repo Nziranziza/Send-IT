@@ -1,10 +1,20 @@
 import { Pool } from 'pg';
 import uuid from 'uuid';
+import dotenv from 'dotenv';
 import helper from '../helper/helper';
+
+
+dotenv.config();
 
 class Database {
   constructor() {
-    this.pool = new Pool();
+    this.pool = new Pool({
+      user: process.env.PGUSER,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT
+    });
     this.connect = async () => this.pool.connect();
     this.initialize();
   }
@@ -40,6 +50,12 @@ class Database {
       INSERT INTO user_table
       VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       `;
+    /**
+     *
+     * @param {*} sql query string
+     * @param {*} data values
+     * @returns rows array
+     */
     async execute(sql, data = []) {
       const connection = await this.connect();
 
