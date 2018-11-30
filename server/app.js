@@ -3,11 +3,13 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
+import swaggerui from 'swagger-ui-express';
 import dotenv from 'dotenv';
 import parcelRoutes from './routes/parcelRoutes';
 import auth from './routes/auth';
 import userRoutes from './routes/userRoutes';
 import './db/database';
+import swaggerdocs from './swaggerdocs.json';
 
 dotenv.config();
 const app = express();
@@ -26,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/parcels', parcelRoutes);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', userRoutes);
+app.use('/api-docs', swaggerui.serve, swaggerui.setup(swaggerdocs));
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
