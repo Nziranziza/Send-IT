@@ -123,6 +123,28 @@ const Parcel = {
     const status = prevStatus === 'Pending' ? 'Delivered' : 'Pending';
     const update = await Database.execute(changeStatus, [status, id]);
     return res.status(201).send(update.rows[0]);
+  },
+  // cancel a parcel delivery order
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns parcel object
+   */
+  async cancelParcel(req, res) {
+    const { userId } = req.body;
+    const id = req.params.id;
+    const fetchParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    try {
+      const { rows } = await Database.execute(fetchParcel, [id]);
+      if (!rows[0]) return res.status(403).send({ message: 'parcel not found' });
+      if (userId !== rows[0].owner_id) return res.status(403).send({ message: 'Not authorized???' });
+      const cancel = 'UPDATE parcel_table SET status = $1 WHERE id = $2 AND owner_id = $3 RETURNING *';
+      const update = await Database.execute(cancel, ['canceled', id, userId]);
+      return res.status(201).send(update.rows[0]);
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something goes wrong!!!' });
+    }
   }
 };
 export default Parcel;

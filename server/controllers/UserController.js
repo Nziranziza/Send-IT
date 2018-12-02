@@ -79,22 +79,22 @@ const User = {
   },
   // Get one user
   /**
-   * 
+   *
    * @param {*} req user id
    * @param {*} res
    * @returns user object
    */
   async getOneUser(req, res) {
-   if(req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
-   try{
-     const getOneUser = 'SELECT * FROM user_table WHERE id = $1';
-     const id = req.params.id;
-     const { rows } = await Database.execute(getOneUser, [id]);
-     if(!rows[0]) return res.status(404).send({ message : 'user not found'});
-     return res.status(200).send(rows[0]);
-   } catch(error) {
-     return res.status(408).send({message :'OOPS!!! something goes wrong!!!'});
-   }
- }
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
+    try {
+      const getOneUser = 'SELECT * FROM user_table WHERE id = $1';
+      const id = req.params.id;
+      const { rows } = await Database.execute(getOneUser, [id]);
+      if (!rows[0]) return res.status(404).send({ message: 'user not found' });
+      return res.status(200).send(rows[0]);
+    } catch (error) {
+      return res.status(408).send({ message: 'OOPS!!! something goes wrong!!!' });
+    }
+  }
 };
 export default User;

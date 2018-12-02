@@ -17,4 +17,6 @@ router.put('/:id/destination', helper.verifyToken, parcelController.changeDestin
 // change the status only by the admin
 router.put('/:id/status', helper.verifyToken, parcelController.changeStatus);
 
+router.put('/:id/cancel', helper.verifyToken, parcelController.cancelParcel);
+
 export default router;

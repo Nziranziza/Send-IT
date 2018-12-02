@@ -4,14 +4,13 @@ import express from 'express';
 import logger from 'morgan';
 import path from 'path';
 import swaggerui from 'swagger-ui-express';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import parcelRoutes from './routes/parcelRoutes';
 import auth from './routes/auth';
 import userRoutes from './routes/userRoutes';
 import './db/database';
 import swaggerdocs from './swaggerdocs.json';
 
-dotenv.config();
 const app = express();
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
