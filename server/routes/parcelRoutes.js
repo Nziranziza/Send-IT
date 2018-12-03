@@ -4,19 +4,22 @@ import helper from '../helper/helper';
 
 const router = express.Router();
 
+router.use(helper.verifyToken);
 /* Create and fetch parcel delivery order(s) */
 router.route('/')
-  .post(helper.verifyToken, parcelController.create)
-  .get(helper.verifyToken, parcelController.getAll);
-// Get one parcel by id
-router.get('/:id', parcelController.getOne);
+  .post(parcelController.create)
+  .get(parcelController.getAll);
+// Get one parcel by id and delete user by id
+router.route('/:id')
+  .get(parcelController.getOne)
+  .delete(parcelController.deleteParcel);
 // Change present location only by Admin
-router.put('/:id/presentLocation', helper.verifyToken, parcelController.changePresentLocation);
+router.put('/:id/presentLocation', parcelController.changePresentLocation);
 // change destination by user who created the parcel
-router.put('/:id/destination', helper.verifyToken, parcelController.changeDestination);
+router.put('/:id/destination', parcelController.changeDestination);
 // change the status only by the admin
-router.put('/:id/status', helper.verifyToken, parcelController.changeStatus);
+router.put('/:id/status', parcelController.changeStatus);
 
-router.put('/:id/cancel', helper.verifyToken, parcelController.cancelParcel);
+router.put('/:id/cancel', parcelController.cancelParcel);
 
 export default router;

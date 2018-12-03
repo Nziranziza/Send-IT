@@ -3,8 +3,8 @@ import Database from '../db/database';
 import helper from '../helper/helper';
 
 const User = {
-  // create user account
   /**
+   * create user account
    *
    * @param {*} req user data
    * @param {*} res
@@ -37,8 +37,8 @@ const User = {
       return res.status(400).send(error);
     }
   },
-  // login a user account
   /**
+   * login a user account
    *
    * @param {*} req object{ email,password }
    * @param {*} res
@@ -59,8 +59,8 @@ const User = {
     const token = helper.getToken(rows[0].id, rows[0].role);
     return res.status(200).send({ user: rows[0], token });
   },
-  // Get all user
   /**
+   * Get all user
    *
    * @param {*} req
    * @param {*} res
@@ -77,8 +77,8 @@ const User = {
       return res.status(408).send({ message: 'OOPS!!! Something goes wrong!!!' });
     }
   },
-  // Get one user
   /**
+   * Get one user
    *
    * @param {*} req user id
    * @param {*} res
@@ -96,8 +96,8 @@ const User = {
       return res.status(408).send({ message: 'OOPS!!! something goes wrong!!!' });
     }
   },
-  // delete user
   /**
+   * delete user
    *
    * @param {*} req
    * @param {*} res

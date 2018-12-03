@@ -5,8 +5,8 @@ import Database from '../db/database';
 const Helper = {
   /**
    *
-   * @param {*} password string
-   * @returns bcrypt password
+   * @param {string} password
+   * @returns {bcrypt} password
    */
   hashThePassword(password) {
     const salt = bcrypt.genSaltSync(12);
@@ -14,29 +14,29 @@ const Helper = {
   },
   /**
    *
-   * @param {*} hashPassword bcrypt
-   * @param {*} password string
+   * @param {bcrypt} hashPassword
+   * @param {string} password
    * @returns boolean
    */
   checkThepassword(hashPassword, password) {
     return bcrypt.compareSync(password, hashPassword);
   },
-  // create a token
   /**
+   *create a token
    *
-   * @param {*} id uuid
-   * @param {*} role string
+   * @param {uuid} userId
+   * @param {string} role
    */
   getToken(id, role) {
     const token = jwt.sign({ id, role }, process.env.SECRETKEY);
     return token;
   },
-  // verify the token
   /**
+   * Verify the token
    *
    * @param {*} req
    * @param {*} res
-   * @param {*} next methods
+   * @param {method} next
    */
   async verifyToken(req, res, next) {
     const token = req.headers['x-access-token'];
