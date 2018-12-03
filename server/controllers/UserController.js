@@ -95,6 +95,25 @@ const User = {
     } catch (error) {
       return res.status(408).send({ message: 'OOPS!!! something goes wrong!!!' });
     }
+  },
+  // delete user
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns deleted user object
+   */
+  async deleteUser(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized!!!' });
+    try {
+      const deleteUser = 'DELETE FROM user_table WHERE id = $1 RETURNING *';
+      const { id } = req.params;
+      const { rows } = await Database.execute(deleteUser, [id]);
+      if (!rows[0]) return res.status(404).send({ message: 'user not found' });
+      return res.status(200).send({ message: 'user was delete successful', deleted: rows[0] });
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something wwent wrong!!!' });
+    }
   }
 };
 export default User;
