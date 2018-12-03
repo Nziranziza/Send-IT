@@ -72,7 +72,7 @@ const User = {
       const getAllUser = 'SELECT * FROM user_table';
       const { rows } = await Database.execute(getAllUser);
       if (!rows[0]) return res.status(404).send('users not found');
-      return res.status(200).send(rows[0]);
+      return res.status(200).send(rows);
     } catch (error) {
       return res.status(408).send({ message: 'OOPS!!! Something goes wrong!!!' });
     }

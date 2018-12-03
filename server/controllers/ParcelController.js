@@ -50,7 +50,7 @@ const Parcel = {
       if (!rows[0]) return res.status(404).send({ message: 'parcels not found' });
       return res.status(200).send(rows);
     } catch (error) {
-      return res.status().send({ message: 'OOPS!!! something goes wrong!!!' });
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
     }
   },
   // get one parcel by id
@@ -143,7 +143,27 @@ const Parcel = {
       const update = await Database.execute(cancel, ['canceled', id, userId]);
       return res.status(201).send(update.rows[0]);
     } catch (error) {
-      return res.status(520).send({ message: 'OOPS!!! something goes wrong!!!' });
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
+    }
+  },
+  // Get all parcels for a specific user
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns parcels array
+   */
+  async getParcelsForUser(req, res) {
+    // const id = req.params.id;
+    const { userId } = req.body;
+    if (req.params.id !== userId) return res.status(403).send({ message: 'Not authorized!!!' });
+    const userParcels = 'SELECT * FROM parcel_table WHERE owner_id = $1';
+    try {
+      const { rows } = await Database.execute(userParcels, [req.params.id]);
+      if (!rows[0]) return res.status(404).send({ message: 'No parcels were found' });
+      return res.status(200).send(rows);
+    } catch (error) {
+      return res.status(502).send({ message: 'OOPS!!! Something went wrong!!!' });
     }
   }
 };
