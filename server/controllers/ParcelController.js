@@ -1,115 +1,195 @@
-import moment from 'moment';
 import uuid from 'uuid';
-import Parcels from '../data/Parcels';
+import Database from '../db/database';
 
 const Parcel = {
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} parcel object
-   */
-  create(req, res) {
-    if (!req.body.from || !req.body.destination || !req.body.weight) {
+/**
+ * create a parcel
+ *
+ * @param {object} req parcel data
+ * @param {*} res
+ * @returns {object} user
+ */
+  async create(req, res) {
+    const { from, destination, weight, userId } = req.body;
+    if (!from || !destination || !weight) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const { from, destination, weight } = req.body;
-    const newParcel = {
-      id: uuid.v4(),
+    const createParcel = `INSERT INTO parcel_table
+                          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                          RETURNING *`;
+    const newParcel = [
+      uuid.v4(),
       from,
       destination,
-      price: weight * 450,
-      createdDate: moment.now(),
-      owner: uuid.v4(),
-      presentLocation: from,
+      userId,
+      new Date(),
+      weight * 450,
+      from,
       weight,
-    };
-    Parcels.push(newParcel);
-    return res.status(201).send(newParcel);
+      'Pending'
+    ];
+    try {
+      const { rows } = await Database.execute(createParcel, newParcel);
+      return res.status(201).send(rows[0]);
+    } catch (error) {
+      return res.send(error);
+    }
   },
   /**
+   * get all parcel
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} parcels array
+   * @param {*} req
+   * @param {*} res
+   * @returns {array} parcels
    */
-  getAll(req, res) {
-    return res.status(200).send(Parcels);
+  async getAll(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized' });
+    try {
+      const selectAllParcels = 'SELECT * FROM parcel_table';
+      const { rows } = await Database.execute(selectAllParcels);
+      if (!rows[0]) return res.status(404).send({ message: 'parcels not found' });
+      return res.status(200).send(rows);
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
+    }
   },
   /**
+   * get one parcel by id
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} parcel object
+   * @param {uuid} req parcel id
+   * @param {*} res
+   * @returns {object} parcel
    */
-  getOne(req, res) {
-    const oneParcel = Parcels.find(parcel => parcel.id === req.params.id);
-    if (!oneParcel) {
+  async getOne(req, res) {
+    const selectOneParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    const id = req.params.id;
+    try {
+      const { rows } = await Database.execute(selectOneParcel, [id]);
+      if (rows[0]) return res.status(200).send(rows[0]);
       return res.status(404).send({ message: 'parcel not found' });
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
     }
-    return res.status(200).send(oneParcel);
   },
   /**
+   * change the present location of the parcel
    *
-   * @param {uuid} req
-   * @returns {object} res
-   */
-  getAllForUser(req, res) {
-    const parcels = Parcels.filter(parcel => req.params.id === parcel.owner);
-    if (!parcels.length) {
-      return res.status(404).send({ message: 'parcels not found' });
-    }
-    return res.status(200).send(parcels);
-  },
-  /**
-   *
-   *  @param {uuid} req
-   *  @param {object} res
-   *  @returns {object} status code
-   */
-  cancel(req, res) {
-    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
-    if (!targetParcel) {
-      return res.status(404).send({ message: 'parcel not found' });
-    }
-    const index = Parcels.indexOf(targetParcel);
-    Parcels[index].status = 'canceled';
-    return res.status(200).send(Parcels[index]);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
+   * @param {string} req present location
+   * @param {*} res
    * @returns {object} updated parcel
    */
-  update(req, res) {
-    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
-    const data = req.body;
-    if (!targetParcel) {
-      return res.status(404).send({ message: 'parcel not found' });
-    }
-    const index = Parcels.indexOf(targetParcel);
-    Parcels[index].from = data.from || targetParcel.from;
-    Parcels[index].destination = data.destination || targetParcel.destination;
-    Parcels[index].weight = data.weight || targetParcel.weight;
-    const updatedParcel = Parcels[index];
-    return res.status(200).send(updatedParcel);
+  async changePresentLocation(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized???' });
+    const changePresentLocation = 'UPDATE parcel_table SET present_location = $1 WHERE id = $2 RETURNING *';
+    const id = req.params.id;
+    const newLocation = req.body.location;
+    const { rows } = await Database.execute(changePresentLocation, [newLocation, id]);
+    if (!rows) return res.status(404).send({ message: 'parcel not found' });
+    if (rows[0]) return res.status(201).send(rows[0]);
   },
   /**
+   * change the destination of the parcel
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {void} return status code 204
+   * @param {string} req destination
+   * @param {*} res
+   * @returns {object} updated parcel
    */
-  delete(req, res) {
-    const targetParcel = Parcels.find(parcel => req.params.id === parcel.id);
-    if (!targetParcel) {
-      return res.status(404).send({ message: 'parcel not found' });
+  async changeDestination(req, res) {
+    if (!req.body.destination) return res.status(400).send({ message: 'Please enter the destination' });
+    const { userId } = req.body;
+    const id = req.params.id;
+    const fetchParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    const { rows } = await Database.execute(fetchParcel, [id]);
+    if (!rows) return res.status(403).send({ message: 'parcel not found' });
+    if (!rows[0]) return res.status(403).send({ message: 'parcel not found' });
+    if (userId !== rows[0].owner_id) return res.status(403).send({ message: 'Not authorized???' });
+    const changeDestination = 'UPDATE parcel_table SET destination = $1 WHERE id = $2 AND owner_id = $3 RETURNING *';
+    const destination = req.body.destination;
+    const update = await Database.execute(changeDestination, [destination, id, userId]);
+    return res.status(201).send(update.rows[0]);
+  },
+  /**
+   * change the status
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns {object} updated parcel
+   */
+  async changeStatus(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized' });
+    const id = req.params.id;
+    const fetchParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    const { rows } = await Database.execute(fetchParcel, [id]);
+    if (!rows) return res.status(404).send({ message: 'parcel not found' });
+    if (!rows[0]) return res.status(404).send({ message: 'parcel not found' });
+    const prevStatus = rows[0].status;
+    const changeStatus = 'UPDATE parcel_table SET status = $1 WHERE id = $2 RETURNING *';
+    const status = prevStatus === 'Pending' ? 'Delivered' : 'Pending';
+    const update = await Database.execute(changeStatus, [status, id]);
+    return res.status(201).send(update.rows[0]);
+  },
+  /**
+   * cancel a parcel delivery order
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns {object} parcel
+   */
+  async cancelParcel(req, res) {
+    const { userId } = req.body;
+    const id = req.params.id;
+    const fetchParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    try {
+      const { rows } = await Database.execute(fetchParcel, [id]);
+      if (!rows[0]) return res.status(403).send({ message: 'parcel not found' });
+      if (userId !== rows[0].owner_id) return res.status(403).send({ message: 'Not authorized???' });
+      const cancel = 'UPDATE parcel_table SET status = $1 WHERE id = $2 AND owner_id = $3 RETURNING *';
+      const update = await Database.execute(cancel, ['canceled', id, userId]);
+      return res.status(201).send(update.rows[0]);
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
     }
-    const index = Parcels.indexOf(targetParcel);
-    Parcels.splice(index, 1);
-    return res.status(201).send({ message: 'parcel was deleted successfully!!!' });
+  },
+  /**
+   * Get all parcels for a specific user
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns {array} parcels
+   */
+  async getParcelsForUser(req, res) {
+    const { userId } = req.body;
+    if (req.params.id !== userId) return res.status(403).send({ message: 'Not authorized!!!' });
+    const userParcels = 'SELECT * FROM parcel_table WHERE owner_id = $1';
+    try {
+      const { rows } = await Database.execute(userParcels, [req.params.id]);
+      if (!rows[0]) return res.status(404).send({ message: 'No parcels were found' });
+      return res.status(200).send(rows);
+    } catch (error) {
+      return res.status(502).send({ message: 'OOPS!!! Something went wrong!!!' });
+    }
+  },
+  /**
+   * delete a parcel delivery order
+   *
+   * @param {*} req
+   * @param {*} res
+   * @returns {object} deleted parcel
+   */
+  async deleteParcel(req, res) {
+    const { userId } = req.body;
+    const { id } = req.params;
+    const fetchParcel = 'SELECT * FROM parcel_table WHERE id = $1';
+    try {
+      const { rows } = await Database.execute(fetchParcel, [id]);
+      if (!rows[0]) return res.status(404).send({ message: 'parcel not found' });
+      if (userId !== rows[0].owner_id) return res.status(403).send({ message: 'Not authorized!!!' });
+      const deleteParcel = 'DELETE FROM parcel_table WHERE id = $1 RETURNING *';
+      const deleted = await Database.execute(deleteParcel, [id]);
+      return res.status(200).send({ message: 'parcel was deleted successful', deleted: deleted.rows[0] });
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something went wrong!!!' });
+    }
   }
 };
-
 export default Parcel;

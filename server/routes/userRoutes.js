@@ -1,30 +1,18 @@
 import express from 'express';
-import parcelController from '../controllers/ParcelController';
 import userController from '../controllers/UserController';
+import parcelController from '../controllers/ParcelController';
+import helper from '../helper/helper';
 
 const router = express.Router();
 
-/* Fetch all parcel delivery orders by a specific user */
-router.get('/:id/parcels', parcelController.getAllForUser);
-
-/* Create a user account and fetch all users */
-router.route('/')
-  .post(userController.create)
-  .get(userController.getAll);
-
-/* Fetch a specific user */
-router.get('/:id', userController.getOne);
-
-/* Sign in into user account */
-router.put('/login', userController.signin);
-
-/* Sign out user account */
-router.put('/logout', userController.signout);
-
-/* Update the profile */
-router.put('/:id/update-profile', userController.update);
-
-/* Update the profile */
-router.delete('/:id/delete', userController.deleteUser);
+router.use(helper.verifyToken);
+/* Create a user account  */
+router.get('/', userController.getAllUser);
+// Get and delete a user
+router.route('/:id')
+  .get(userController.getOneUser)
+  .delete(userController.deleteUser);
+// Get all parcels for a specific user
+router.get('/:id/parcels', parcelController.getParcelsForUser);
 
 export default router;

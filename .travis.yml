@@ -1,4 +1,24 @@
+sudo: false
+services:
+  - postgresql
 language: node_js
 node_js:
   - "7"
+addons:
+  postgresql: "9.4"
+env:
+  global:
+    - NODE_ENV=development
+    - SECRETKEY=1234567890
+    - PG_HOST=localhost
+    - PG_URL=postgresql://admin:1234567890@localhost/sendparcel
+    - PG_USER=admin
+    - PG_DATABASE=sendparcel
+    - PG_PASSWORD=1234567890
+    - PG_PORT=5432
+before_script:
+  - psql -c 'create database sendparcel;' -U postgres
+  - psql -c "CREATE USER admin WITH PASSWORD '1234567890';" -U postgres
+script:
+  npm test
 after_success: npm run coverage

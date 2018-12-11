@@ -1,120 +1,119 @@
-import moment from 'moment';
 import uuid from 'uuid';
-import Users from '../data/Users';
+import Database from '../db/database';
+import helper from '../helper/helper';
 
 const User = {
   /**
+   * create user account
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} user object
+   * @param {*} req user data
+   * @param {*} res
+   * @returns user object
    */
-  create(req, res) {
+  async create(req, res) {
     const { firstName, lastName, email, password, userName } = req.body;
     if (!firstName || !lastName || !email || !password) {
       return res.status(400).send({ message: 'All fields are required' });
     }
-    const newUser = {
-      id: uuid.v4(),
+    const createUser = `INSERT INTO user_table
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                        RETURNING *`;
+    const hashPassword = helper.hashThePassword(password);
+    const newUser = [
+      uuid.v4(),
       firstName,
       lastName,
       email,
-      createdDate: moment.now(),
-      password,
-      userName: userName || `${firstName}${lastName}`,
-      isloggedin: true
-    };
-    Users.push(newUser);
-    return res.status(201).send(newUser);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} users array
-   */
-  getAll(req, res) {
-    return res.status(200).send(Users);
-  },
-  /**
-   *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} user object
-   */
-  getOne(req, res) {
-    const targetUser = Users.find(user => req.params.id === user.id);
-    if (!targetUser) {
-      return res.status(404).send({ message: 'user not found' });
+      hashPassword,
+      userName || `${firstName}${lastName}`,
+      'user',
+      new Date()
+    ];
+    const token = helper.getToken(newUser[0], newUser[6]);
+    try {
+      const { rows } = await Database.execute(createUser, newUser);
+      return res.status(201).send({ user: rows[0], token });
+    } catch (error) {
+      return res.status(400).send(error);
     }
-    return res.status(200).send(targetUser);
   },
   /**
+   * login a user account
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} user object
+   * @param {*} req object{ email,password }
+   * @param {*} res
+   * @retuns user object
    */
-  signin(req, res) {
+  async login(req, res) {
     const { email, password } = req.body;
-    const targetUser = Users.find(user => user.email === email && user.password === password);
-    if (!targetUser) {
-      return res.status(404).send({ message: 'user not found' });
+    if (!email || !password) {
+      return res.status(400).send({ message: 'All fields are required' });
     }
-    const index = Users.indexOf(targetUser);
-    Users[index].isloggedin = true;
-    const activeUser = Users[index];
-    return res.status(200).send(activeUser);
+    const findUser = 'SELECT * FROM user_table WHERE email = $1';
+    const { rows } = await Database.execute(findUser, [email]);
+    if (!rows) return res.status(404).send({ message: 'user not found' });
+    if (!rows[0]) return res.status(404).send({ message: 'user not found' });
+    if (!helper.checkThepassword(rows[0].password, password)) {
+      return res.status(400).send({ message: 'The password is incorrect!!!' });
+    }
+    const token = helper.getToken(rows[0].id, rows[0].role);
+    return res.status(200).send({ user: rows[0], token });
   },
   /**
+   * Get all user
    *
-   * @param {void}
-   * @returns {object} user object
-   *
+   * @param {*} req
+   * @param {*} res
+   * @returns user array
    */
-  signout(req, res) {
-    const activeUser = Users.find(user => user.isloggedin === true);
-    if (!activeUser) {
-      return res.status(404).send({ message: ' u are not logged in' });
+  async getAllUser(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
+    try {
+      const getAllUser = 'SELECT * FROM user_table';
+      const { rows } = await Database.execute(getAllUser);
+      if (!rows[0]) return res.status(404).send('users not found');
+      return res.status(200).send(rows);
+    } catch (error) {
+      return res.status(408).send({ message: 'OOPS!!! Something goes wrong!!!' });
     }
-    const index = Users.indexOf(activeUser);
-    Users[index].isloggedin = false;
-    const passiveUser = Users[index];
-    return res.status(200).send(passiveUser);
   },
   /**
+   * Get one user
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} updated user
+   * @param {*} req user id
+   * @param {*} res
+   * @returns user object
    */
-  update(req, res) {
-    const { firstName, lastName, email } = req.body;
-    const targetUser = Users.find(user => req.params.id === user.id);
-    if (!targetUser) {
-      return res.status(404).send({ message: 'user not found' });
+  async getOneUser(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not Authorized' });
+    try {
+      const getOneUser = 'SELECT * FROM user_table WHERE id = $1';
+      const id = req.params.id;
+      const { rows } = await Database.execute(getOneUser, [id]);
+      if (!rows[0]) return res.status(404).send({ message: 'user not found' });
+      return res.status(200).send(rows[0]);
+    } catch (error) {
+      return res.status(408).send({ message: 'OOPS!!! something goes wrong!!!' });
     }
-    const index = Users.indexOf(targetUser);
-    Users[index].firstName = firstName || targetUser.firstName;
-    Users[index].lastName = lastName || targetUser.lastName;
-    Users[index].email = email || targetUser.email;
-    const updatedUser = Users[index];
-    return res.status(200).send(updatedUser);
   },
   /**
+   * delete user
    *
-   * @param {object} req
-   * @param {object} res
-   * @returns {void} return status code 204
+   * @param {*} req
+   * @param {*} res
+   * @returns deleted user object
    */
-  deleteUser(req, res) {
-    const targetUser = Users.find(user => req.params.id === user.id);
-    if (!targetUser) {
-      return res.status(404).send({ message: 'user not found' });
+  async deleteUser(req, res) {
+    if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized!!!' });
+    try {
+      const deleteUser = 'DELETE FROM user_table WHERE id = $1 RETURNING *';
+      const { id } = req.params;
+      const { rows } = await Database.execute(deleteUser, [id]);
+      if (!rows[0]) return res.status(404).send({ message: 'user not found' });
+      return res.status(200).send({ message: 'user was delete successful', deleted: rows[0] });
+    } catch (error) {
+      return res.status(520).send({ message: 'OOPS!!! something wwent wrong!!!' });
     }
-    const index = Users.indexOf(targetUser);
-    Users.splice(index, 1);
-    return res.status(201).send({ message: 'user was deleted successfully!!!' });
   }
 };
 export default User;

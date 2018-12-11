@@ -1,0 +1,380 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "SendIT",
+      "description": "API documentation for SendIT courier services"
+    },
+    "servers" : [
+      {"url" : "https://sendparcel.herokuapp.com/"},
+      {"url" : "localhost:3000"}
+      ],
+    "paths": {
+      "/api/v1/parcels/": {
+         "post": {
+            "tags": ["Create a parcel delivery order"],
+            "description": "Create a parcel delivery order",
+             "requestBody": {
+              "required": true,
+              "content" : {
+                "application/x-www-form-urlencoded": {
+                  "schema" : {
+                    "type": "object",
+                    "properties" : {
+                      "from": {
+                        "type": "string"
+                      },
+                      "destination": {
+                        "type": "string"
+                      },
+                      "weight" : {
+                        "type": "string"
+                      }  
+                    }
+                  },
+                  "example" : {
+                    "0" : {
+                      "values" : "{\n \"from\": \"Kigali\",\n \"destination\": \"Muhanga\",\n \"weight\": \"60\",\n}"
+                    }
+                  }
+                }
+              }
+            },
+           
+              "responses": {
+              "201": {
+                "description": "a parcel have been created",
+                "content": {
+                  "text/html; charset=utf-8": {
+                    "schema": {
+                   "type": "object"
+                   },
+                   "example": {
+                     "id": "123-dh23-cjn4-cx56-cnd8-cndo8-cjnfd",
+                     "from": "Muhanga",
+                     "destination": "Kigali",
+                     "weight": "23",
+                     "present_location": "Muhanga",
+                     "owner_id": "jhfh-qep4-nvpe-jtk23-czmi",
+                     "status": "Pending"
+
+                   }
+                  }
+                }
+              }
+             }
+           }
+         },
+      "/api/v1/parcels":{
+           "get": {
+            "tags": ["Get all parcel delivery orders"],
+            "description": "Fetch all parcels",
+            "parameters": [
+              {
+                "in": "header",
+                "name": "x-access-token",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            ],
+            "operationId": "parcelController_getAll",
+           "responses": {
+             "200": {
+               "description": "parcels fetched succesfully",
+               "content": {
+                 "application/json; charset=utf-8": {
+                   "schema":{
+                     "type": "array"
+                     },
+                     "example": 
+                      [
+                        {
+                          "id": "455af26d-7b49-493f-8c34-1ffd75587f82",
+                          "origin": "Muhanga",
+                          "destination": "Kenya",
+                          "owner_id": "2b69e9d1-a28c-4bbf-9af1-a4b002f00e8d",
+                          "created_date": "2018-11-30T00:00:00.000Z",
+                          "price": 55350,
+                          "present_location": "Uganda",
+                          "weight": 123,
+                          "status": "Pending"
+                        }
+                      ]
+                   }
+                 }
+               }
+             }
+            }
+          },
+          "/api/v1/auth/login" : {
+            "post" : {
+              "tags": ["Login a user"],
+              "description" : "Route to log a user in",
+              "requestBody" : {
+                "content" : {
+                  "application/json" : {
+                    "schema" : {
+                      "type" : "object",
+                      "properties" : {
+                        "password" : {
+                          "type" : "string"
+                        },
+                        "username" : {
+                          "type" : "string"
+                        }
+                      }
+                    },
+                    "examples" : {
+                      "0" : {
+                        "value" : "{\n    \"email\": \"admin@sendit.com\",\n    \"password\": \"admin\"\n}"
+                      }
+                    }
+                  }
+                }
+              },
+              "responses" : {
+                "200" : {
+                  "description" : "Successfully logged user in",
+                  "content" : {
+                    "text/html; charset=utf-8" : {
+                      "schema" : {
+                        "type" : "string"
+                      },
+                      "examples" : { 
+                        "user": {
+                          "id": "8e015c54-d6ba-4f24-aa2b-ca73a64d8bd6",
+                          "first_name": "Admin",
+                          "last_name": "Sendit",
+                          "email": "admin@sendit.com",
+                          "password": "$2b$12$dRZB4.YTGPBT3FhAp5CFRuFORy6CUf2Cjpi9jT597rTGU9uIyFdAi",
+                          "username": "Admin",
+                          "role": "Admin",
+                          "created_date": "2018-11-29T00:00:00.000Z"
+                        },
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlMDE1YzU0LWQ2YmEtNGYyNC1hYTJiLWNhNzNhNjRkOGJkNiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTU0Mzc0MDcwN30.EtG_I7uXSbFwI_wVvJlmTBkSE8ijHAKu41A2dXfXxoM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/api/v1/auth/signup" : {
+            "post" : {
+              "tags": ["Register a user"],
+              "description" : "Route to sign a user in",
+              "requestBody" : {
+                "content" : {
+                  "application/json" : {
+                    "schema" : {
+                      "type" : "object",
+                      "properties" : {
+                        "firstName" : {
+                          "type" : "string"
+                        },
+                        "lastName" : {
+                          "type" : "string"
+                        },
+                        "email" : {
+                          "type" : "string"
+                        },
+                        "password" : {
+                          "type" : "string"
+                        }
+                      }
+                    },
+                    "examples" : {
+                      "0" : {
+                        "value" : "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"doe@sendit.com\"\n    \"password\": \"123456\",}"
+                      }
+                    }
+                  }
+                }
+              },
+              "responses" : {
+                "200" : {
+                  "description" : "Endpoint successfully sign in the new user",
+                  "content" : {
+                    "text/html; charset=utf-8" : {
+                      "schema" : {
+                        "type" : "object"
+                      },
+                      "examples" : { 
+                        "user": {
+                          "id": "8e015c54-d6ba-4f24-aa2b-ca73a64d8bd6",
+                          "first_name": "Joe",
+                          "last_name": "Doe",
+                          "email": "doe@sendit.com",
+                          "password": "$2b$12$dRZB4.YTGPBT3FhAp5CFRuFORy6CUf2Cjpi9jT597rTGU9uIyFdAi",
+                          "username": "JoeDoe",
+                          "role": "user",
+                          "created_date": "2018-11-29T00:00:00.000Z"
+                        },
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlMDE1YzU0LWQ2YmEtNGYyNC1hYTJiLWNhNzNhNjRkOGJkNiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTU0Mzc0MDcwN30.EtG_I7uXSbFwI_wVvJlmTBkSE8ijHAKu41A2dXfXxoM"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+            "/api/v1/parcels/<parcelId>/destination": {
+               "put": {
+                  "tags": ["Change destination"],
+                  "description": "Only user who created parcel delivery order can change destination of parcel delivery order",
+                  "parameters": [
+                    {
+                      "in": "header",
+                      "name": "x-access-token",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "required": true
+                    }
+                  ],
+                   "requestBody": {
+                    "required": true,
+                    "content" : {
+                      "application/x-www-form-urlencoded": {
+                        "schema" : {
+                          "type": "object",
+                          "properties" : {
+                            "destination": {
+                              "type": "string"
+                            } 
+                          }
+                        },
+                        "example" : {
+                          "0" : {
+                            "values" : "{\n \"destination\": \"Kigali\",\n}"
+                          }
+                        }
+                      }
+                    }
+                  },
+                 
+                    "responses": {
+                    "201": {
+                      "description": "Destination was successfully changed",
+                      "content": {
+                        "text/html; charset=utf-8": {
+                          "schema": {
+                         "type": "object"
+                         },
+                         "example": {
+                           "id": "123-dh23-cjn4-cx56-cnd8-cndo8-cjnfd",
+                           "from": "Muhanga",
+                           "destination": "Kigali",
+                           "weight": "23",
+                           "present_location": "Muhanga",
+                           "owner_id": "jhfh-qep4-nvpe-jtk23-czmi",
+                           "status": "Pending"
+      
+                         }
+                        }
+                      }
+                    }
+                   }
+                 }
+              },
+                "/api/v1/parcels/<parcelId>/presentLocation": {
+                   "put": {
+                      "tags": ["Change present location"],
+                      "description": "Admin only can change present location of parcel delivery order",
+                      "parameters": [
+                        {
+                          "in": "header",
+                          "name": "x-access-token",
+                          "schema": {
+                            "type": "string"
+                          },
+                          "required": true
+                        }
+                      ],
+                       "requestBody": {
+                        "required": true,
+                        "content" : {
+                          "application/x-www-form-urlencoded": {
+                            "schema" : {
+                              "type": "object",
+                              "properties" : {
+                                "location": {
+                                  "type": "string"
+                                } 
+                              }
+                            },
+                            "example" : {
+                              "0" : {
+                                "values" : "{\n \"location\": \"Kigali\",\n}"
+                              }
+                            }
+                          }
+                        }
+                      },
+                     
+                        "responses": {
+                        "201": {
+                          "description": "Present location was successfully changed",
+                          "content": {
+                            "text/html; charset=utf-8": {
+                              "schema": {
+                             "type": "object"
+                             },
+                             "example": {
+                               "id": "123-dh23-cjn4-cx56-cnd8-cndo8-cjnfd",
+                               "from": "Muhanga",
+                               "destination": "Kigali",
+                               "weight": "23",
+                               "present_location": "Muhanga",
+                               "owner_id": "jhfh-qep4-nvpe-jtk23-czmi",
+                               "status": "Pending"
+                             }
+                            }
+                          }
+                        }
+                       }
+                     }
+                   },
+                   "/api/v1/parcels/<parcelId>/status": {
+                    "put": {
+                       "tags": ["Change status"],
+                       "description": "Only Admin can change status of parcel delivery order",
+                       "parameters": [
+                         {
+                           "in": "header",
+                           "name": "x-access-token",
+                           "schema": {
+                             "type": "string"
+                           },
+                           "required": true
+                         }
+                       ],
+                         "responses": {
+                         "201": {
+                           "description": "Status was successfully changed",
+                           "content": {
+                             "text/html; charset=utf-8": {
+                               "schema": {
+                              "type": "object"
+                              },
+                              "example": {
+                                "id": "123-dh23-cjn4-cx56-cnd8-cndo8-cjnfd",
+                                "from": "Muhanga",
+                                "destination": "Kigali",
+                                "weight": "23",
+                                "present_location": "Muhanga",
+                                "owner_id": "jhfh-qep4-nvpe-jtk23-czmi",
+                                "status": "Pending"
+           
+                              }
+                             }
+                           }
+                         }
+                        }
+                      }
+                    }
+                  }  
+  
+}
