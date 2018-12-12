@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../UI')));
 
 // Defining routes
 app.use('/api/v1/parcels', parcelRoutes);
