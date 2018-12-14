@@ -37,7 +37,7 @@
             </div>
 <!--The create account form-->
         <div class="rectangle-3">
-         <form method="POST" action="../../api/v1/auth/signup">
+         <form  onsubmit="return false"> 
             <h2 class="to-center">Create an account with us</h2>
             <div class="box">
                 <input type="name" placeholder="First Name" name="firstName" class="full-width" id="fname" required>
@@ -48,7 +48,7 @@
                 <br />
                 <input type="password" placeholder="Password" class="full-width" id="password" name="password" required>
                 <p>By clicking sign up,you agree with our <a href="#">Terms</a> and <a href="#">Conditions</a></p>
-                <button type="submit" class="button full-width primary">Sign Up</button>
+                <button type="submit" class="button full-width primary" onclick="signup()">Sign Up</button>
                 <div class="to-center">
                     <a href="login.html">Already have an account</a>
                 </div>
@@ -61,7 +61,7 @@
              <div class="container">
                  <hr/>
                  <p>&copy SendIT 2018. <a href="#" style="padding-right:10px">Terms</a><a href="#">Privacy</a></p>
-                 <script src="../js/account.js"></script>
+                 <script src="../js/signup.js"></script>
              </div>
         </footer>
 
