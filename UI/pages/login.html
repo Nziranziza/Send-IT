@@ -31,7 +31,7 @@
         </header>
 <!--The login form-->
       <div class="form">
-        <form  action="createparcel.html" onSubmit="return login()">
+        <form onsubmit="return false">
             <div>
                 <img src="../img/send.png" class="icon img-center"/> 
                 <div class="to-center">
@@ -43,7 +43,7 @@
                 <br />
                 <input type="password" placeholder="Password" class="full-width"id="password" required>
                 <br />
-                <button type="submit" class="button primary full-width" >Login</button>
+                <button type="submit" class="button primary full-width" onclick="login()">Login</button>
             </div>
             <!--The error display div-->
             <div id="err-msg" class="to-center">
@@ -59,7 +59,7 @@
              <div class="container">
                  <hr/>
                  <p>&copy SendIT 2018. <a href="#" id="footer-link">Terms</a><a href="#">Privacy</a></p>
-                 <script src="../js/account.js"></script>
+                 <script src="../js/login.js"></script>
              </div>
         </footer>
    
