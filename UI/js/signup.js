@@ -4,14 +4,13 @@ async function getData() {
   const email = document.getElementById('email').value.trim();
   const cemail = document.getElementById('cemail').value.trim();
   const password = document.getElementById('password').value.trim();
-
+  const header = new Headers();
   if (email === cemail) {
+    header.append('Accept', 'application/json');
+    header.append('Content-Type', 'application/json');
     const response = await fetch('../../api/v1/auth/signup', {
       method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+      headers: header,
       body: JSON.stringify({
         firstName,
         lastName,
