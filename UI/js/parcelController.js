@@ -29,6 +29,7 @@ async function fetchParcel() {
           </div>`;
       } else {
         const length = data.length;
+        displayParcel.innerHTML = '';
         for (let i = length - 1; i >= 0; --i) {
           const from = data[i].origin;
           const destination = data[i].destination;
@@ -90,7 +91,7 @@ async function changeDestination(id) {
       destination
     })
   });
-  await fetchParcel();
+  fetchParcel();
 }
 function edit(id) {
   const dist = document.getElementById(id);
