@@ -12,13 +12,13 @@ async function getData() {
   const data = await response.json();
   return data;
 }
-function fetchParcel() {
+async function fetchParcel() {
   const displayParcel = document.getElementById('display');
 
   if (localStorage.getItem('sendit-user-token') === null || !JSON.parse(localStorage.getItem('sendit-user-token'))) {
     window.location.replace('/pages/login.html');
   }
-  getData()
+  await getData()
     .then((data) => {
       if (data.message === ('Not authorized!!!' || 'Not authorized!' || 'OOPS!!! Something went wrong!!!')) {
         alert(data.message);
@@ -41,15 +41,15 @@ function fetchParcel() {
           const presentLoc = data[i].present_location;
           const btnclass = status === 'Pending' ? 'label del' : 'label success';
           displayParcel.innerHTML += `<div class='box margin-left'>
-          <div class='popup right' onMouseOver='popup(${id})' onMouseOut='popup(${id})' onclick='deleteParcel(${id})'>x<span class='popuptext' id='${id}p'>Remove</span></div>
+          <div class='popup right' onMouseOver='popup("${id}")' onMouseOut='popup("${id}")' onclick='deleteParcel("${id}")'>x<span class='popuptext' id='${id}p'>Remove</span></div>
           <h3>Parcel order from ${from} to ${destination}</h3>
           <label><b>Status:</b> ${status}</label></br />
           <label><b>Weight:</b> ${weight} kg</label><br />
           <label><b>Price:</b> ${price} Rwf</label><br />
           <label><b>Present location:</b>${presentLoc}</label><br />
           <label>${date}</label><br />
-          <button onClick='orderParcel(${id})' class='${btnclass}'>${ordered}</button>
-          <button onClick='edit(${id})' class='label primary'>Change location</button>
+          <button onClick='orderParcel("${id}")' class='${btnclass}'>${ordered}</button>
+          <button onClick='edit("${id}")' class='label primary'>Change location</button>
           <div id='${id}'></div>
       </div>`;
         }
@@ -75,4 +75,25 @@ async function createParcel() {
     })
   });
   fetchParcel();
+}
+async function changeDestination(id) {
+  const header = new Headers();
+  const destination = document.getElementById(`${id}i`).value;
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch(`../../api/v1/parcels/${id}/destination`, {
+    method: 'PUT',
+    headers: header,
+    body: JSON.stringify({
+      destination
+    })
+  });
+  await fetchParcel();
+}
+function edit(id) {
+  const dist = document.getElementById(id);
+  dist.innerHTML = `<input type='text' placeholder='Type in new destination' id='${id}i'><br />
+                 <button class='label primary' onClick='changeDestination("${id}")'>Update</button>`;
 }
