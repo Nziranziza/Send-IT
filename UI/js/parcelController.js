@@ -49,7 +49,7 @@ async function fetchParcel() {
           <label><b>Price:</b> ${price} Rwf</label><br />
           <label><b>Present location:</b>${presentLoc}</label><br />
           <label>${date}</label><br />
-          <button onClick='orderParcel("${id}")' class='${btnclass}'>${ordered}</button>
+          <button onClick='cancelParcel("${id}")' class='${btnclass}'>${ordered}</button>
           <button onClick='edit("${id}")' class='label primary'>Change location</button>
           <div id='${id}'></div>
       </div>`;
@@ -97,4 +97,17 @@ function edit(id) {
   const dist = document.getElementById(id);
   dist.innerHTML = `<input type='text' placeholder='Type in new destination' id='${id}i'><br />
                  <button class='label primary' onClick='changeDestination("${id}")'>Update</button>`;
+}
+
+async function cancelParcel(id) {
+  const header = new Headers();
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch(`../../api/v1/parcels/${id}/cancel`, {
+    method: 'PUT',
+    headers: header
+  });
+  fetchParcel();
 }
