@@ -153,4 +153,50 @@ async function viewAllPDOs() {
       }
     });
 }
-
+async function viewDeliveredPOs() {
+  const link1 = document.getElementById('link1');
+  const link2 = document.getElementById('link2');
+  const link3 = document.getElementById('link3');
+  const link4 = document.getElementById('link4');
+  const link5 = document.getElementById('link5');
+  link1.setAttribute('class', 'button primary');
+  link2.setAttribute('class', 'button current');
+  link3.setAttribute('class', 'button primary');
+  link4.setAttribute('class', 'button primary');
+  link5.setAttribute('class', 'button primary');
+  getData()
+    .then((data) => {
+      const length = data.length;
+      const userContent = document.getElementById('user-content');
+      let parcels = '';
+      let deliveredParcel = 0;
+      for (let i = length - 1; i >= 0; --i) {
+        if (data.status === 'delivered') {
+          deliveredParcel++;
+          const from = data[i].origin;
+          const destination = data[i].destination;
+          const weight = data[i].weight;
+          const status = data[i].status;
+          const price = data[i].price;
+          const date = data[i].created_date;
+          const ordered = status === 'Pending' ? 'Cancel' : 'Order';
+          const id = data[i].id;
+          const presentLoc = data[i].present_location;
+          const btnclass = status === 'Pending' ? 'label del' : 'label success';
+          parcels += `<div class='box'>
+        <div class='popup right' onMouseOver='popup("${id}")' onMouseOut='popup("${id}")' onclick='deleteParcel("${id}")'>x<span class='popuptext' id='${id}p'>Remove</span></div>
+        <h3>Parcel order from ${from} to ${destination}</h3>
+        <label><b>Status:</b> ${status}</label></br />
+        <label><b>Weight:</b> ${weight} kg</label><br />
+        <label><b>Price:</b> ${price} Rwf</label><br />
+        <label><b>Present location:</b>${presentLoc}</label><br />
+        <label>${date}</label><br />
+        <button onClick='cancelParcel("${id}")' class='${btnclass}'>${ordered}</button>
+        <button onClick='edit("${id}")' class='label primary'>Change location</button>
+        <div id='${id}'></div>
+    </div>`;
+        }
+      }
+      userContent.innerHTML = `<h1 class='box'>Delivered Parcel Orders (${deliveredParcel})</h1>${parcels}`;
+    });
+}

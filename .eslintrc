@@ -19,6 +19,9 @@
     "linebreak-style":0,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "consistent-return":0,
-    "quote-props":0
+    "quote-props":0,
+    "no-plusplus":0,
+    "no-unused-vars":0,
+    "no-alert":0
   }
 }
