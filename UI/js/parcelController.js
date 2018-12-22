@@ -312,3 +312,55 @@ async function changeStatus(id) {
   });
   getAll();
 }
+async function changePresentLocation(id) {
+  const header = new Headers();
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  const location = document.getElementById(`${id}pr`).value;
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch(`../../api/v1/parcels/${id}/presentLocation`, {
+    method: 'PUT',
+    headers: header,
+    body: JSON.stringify({
+      location
+    })
+  });
+  getAll();
+}
+async function detailParcel(id) {
+  const header = new Headers();
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch('../../api/v1/parcels', {
+    method: 'GET',
+    headers: header
+  }).then(response => response.json())
+    .then((data) => {
+      const view = document.getElementById(id);
+      for (let i = 0; i < data.length; i++) {
+        if (id === data[i].id) {
+          const status = data[i].status;
+          if (view.innerHTML) {
+            view.innerHTML = '';
+          } else {
+            view.innerHTML = `<div class='box'>
+            <h3>Summary details</h3>
+            <b>Id:</b> ${data[i].id}<br />
+            <b>From:</b> ${data[i].from}<br />
+            <b>Destination:</b> ${data[i].destination}<br />
+            <b>Price:</b> ${data[i].price}<br />
+            <b>Status:</b> ${status}<br />
+            <b>Present location:</b><br />
+            <input type='text' value='${data[i].present_location}' placeholder='New present location' id='${id}pr'>
+            <button class='button primary' onClick='changePresentLocation("${id}")'>Update</button>"
+            </div>`;
+          }
+        }
+      }
+      const arrowUrl = view.innerHTML ? '../img/arrowdown.png' : '../img/arrow.png';
+      document.getElementById(`${id}img`).setAttribute('src', arrowUrl);
+    });
+}
