@@ -21,7 +21,11 @@ function login() {
     .then((data) => {
       if (data.token) {
         localStorage.setItem('sendit-user-token', JSON.stringify(data));
-        window.location.replace('/pages/createparcel.html');
+        if (data.user.role === 'user') {
+          window.location.replace('/pages/createparcel.html');
+        } else {
+          window.location.replace('/pages/admin.html');
+        }
       } else {
         const errarea = document.getElementById('err-msg');
         errarea.innerHTML = data.message;

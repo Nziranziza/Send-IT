@@ -247,3 +247,56 @@ async function viewInTransitPDOs() {
       userContent.innerHTML = `<h1 class='box'>Delivered Parcel Orders (${inTransitParcel})</h1>${parcels}`;
     });
 }
+async function getAll() {
+  const header = new Headers();
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch('../../api/v1/parcels', {
+    method: 'GET',
+    headers: header
+  }).then(response => response.json())
+    .then((data) => {
+      const adm = document.getElementById('admin');
+      if (data.length) {
+        adm.innerHTML = `<tr class='tadm'>
+                    <th>From</th>
+                    <th>Destination</th>
+                    <th>Price</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                    <th>Present location</th>
+                    <th>Order ID</th>
+                    </tr>`;
+        for (let i = 0; i < data.length; i++) {
+          const from = data[i].origin;
+          const destination = data[i].destination;
+          const weight = data[i].weight;
+          const delivered = data[i].status;
+          const price = data[i].price;
+          const id = data[i].id;
+          const presentLoc = data[i].present_location;
+          const status = delivered === 'Delivered' ? 'Delivered' : 'In transit';
+          const btncls = delivered === 'Delivered' ? 'label success' : 'label primary';
+          const btnCaption = delivered === 'Delivered' ? 'Success' : 'Deliver';
+          adm.innerHTML +=
+          `<tr class='tadm'>
+        <td>
+           <img src='../img/arrow.png' style='width:15px' onClick='detailParcel("${id}")' id='${id}img'></img>${from}
+        </td>
+         <td>${destination}</td>
+         <td>${price} Rwf</td>
+         <td>${weight} Kg</td>
+         <td>${status}</td>
+         <td>${presentLoc}</td>
+         <td>${id}</td>
+         <td><button class='${btncls}' onClick='deliverParcel(${id})'>${btnCaption}</button>
+         </tr> 
+         <div id='${id}'></div>`;
+        }
+      } else {
+        adm.innerHTML = '<h1>No Parcel delivery order is available</h1>';
+      }
+    });
+}
