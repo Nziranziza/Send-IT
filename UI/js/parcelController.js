@@ -291,7 +291,7 @@ async function getAll() {
          <td>${status}</td>
          <td>${presentLoc}</td>
          <td>${id}</td>
-         <td><button class='${btncls}' onClick='deliverParcel(${id})'>${btnCaption}</button>
+         <td><button class='${btncls}' onClick='changeStatus("${id}")'>${btnCaption}</button>
          </tr> 
          <div id='${id}'></div>`;
         }
@@ -299,4 +299,16 @@ async function getAll() {
         adm.innerHTML = '<h1>No Parcel delivery order is available</h1>';
       }
     });
+}
+async function changeStatus(id) {
+  const header = new Headers();
+  const { token } = JSON.parse(localStorage.getItem('sendit-user-token'));
+  header.append('Accept', 'application/json');
+  header.append('Content-Type', 'application/json');
+  header.append('x-access-token', token);
+  await fetch(`../../api/v1/parcels/${id}/status`, {
+    method: 'PUT',
+    headers: header
+  });
+  getAll();
 }
