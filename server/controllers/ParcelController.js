@@ -1,4 +1,6 @@
 import uuid from 'uuid';
+import joi from 'joi';
+import schema from '../helper/validation';
 import Database from '../db/database';
 
 const Parcel = {
@@ -11,8 +13,14 @@ const Parcel = {
  */
   async create(req, res) {
     const { from, destination, weight, userId } = req.body;
-    if (!from || !destination || !weight) {
-      return res.status(400).send({ message: 'All fields are required' });
+    const { error } = joi.validate({ destination, weight, from }, schema.parcel);
+    if (error) {
+      if (error.details[0].type === 'any.required') {
+        return res.status(400).send({
+          message: 'All fields are required'
+        });
+      }
+      return res.status(400).send(error.details[0].message);
     }
     const createParcel = `INSERT INTO parcel_table
                           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)

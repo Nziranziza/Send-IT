@@ -3,8 +3,8 @@ import joi from 'joi';
 const schema = {
   parcel: joi.object().keys({
     from: joi.string().min(2).max(128).required(),
-    destination: joi.string().max(2).max(128),
-    weight: joi.string().alphanum().required(),
+    destination: joi.string().min(2).max(128),
+    weight: joi.number().required(),
   }),
   user: joi.object().keys({
     firstName: joi.string().min(3).max(128).required(),
