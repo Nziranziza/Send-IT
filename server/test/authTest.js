@@ -57,7 +57,7 @@ describe('Signup Test', () => {
 describe('Login Test', () => {
   beforeEach('Create a user', (done) => {
     const data = {
-      password: '1234',
+      password: '1234567890',
       firstName: 'John',
       lastName: 'Doe',
       email: 'doe@sendit.com'
@@ -73,7 +73,7 @@ describe('Login Test', () => {
   it('it should login user account', (done) => {
     const data = {
       email: 'doe@sendit.com',
-      password: '1234'
+      password: '1234567890'
     };
     chai.request(app)
       .post('/api/v1/auth/login')
