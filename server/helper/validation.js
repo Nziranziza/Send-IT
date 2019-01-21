@@ -10,7 +10,7 @@ const schema = {
     firstName: joi.string().min(3).max(128).required(),
     lastName: joi.string().min(3).max(128).required(),
     email: joi.string().email().required(),
-    password: joi.string().min(8).uppercase(1).lowercase(1)
+    password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,128}$/)
       .required()
   })
 };

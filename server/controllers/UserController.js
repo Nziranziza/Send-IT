@@ -19,6 +19,10 @@ const User = {
         return res.status(400).send({
           message: 'All fields are required'
         });
+      } else if (error.details[0].type === 'string.regex.base') {
+        return res.status(400).send({
+          message: 'The password must contain an uppercase, lowercase, number, special character and at least 8 characters long'
+        });
       }
       return res.status(400).send(error.details[0].message);
     }

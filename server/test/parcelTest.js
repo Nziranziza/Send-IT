@@ -19,7 +19,7 @@ describe('Parcel Routes Test', () => {
       .post('/api/v1/auth/signup')
       .send({
         email: 'jennah@sendit.com',
-        password: 'jennah12',
+        password: 'Aa!12345',
         firstName: 'Jennah',
         lastName: 'Haque'
       })
