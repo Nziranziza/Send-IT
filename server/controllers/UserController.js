@@ -1,6 +1,8 @@
 import uuid from 'uuid';
+import joi from 'joi';
 import Database from '../db/database';
 import helper from '../helper/helper';
+import schema from '../helper/validation';
 
 const User = {
   /**
@@ -11,10 +13,20 @@ const User = {
    * @returns user object
    */
   async create(req, res) {
-    const { firstName, lastName, email, password, userName } = req.body;
-    if (!firstName || !lastName || !email || !password) {
-      return res.status(400).send({ message: 'All fields are required' });
+    const { error } = joi.validate(req.body, schema.user);
+    if (error) {
+      if (error.details[0].type === 'any.required') {
+        return res.status(400).send({
+          message: 'All fields are required'
+        });
+      } else if (error.details[0].type === 'string.regex.base') {
+        return res.status(400).send({
+          message: 'The password must contain an uppercase, lowercase, number, special character and at least 8 characters long'
+        });
+      }
+      return res.status(400).send(error.details[0].message);
     }
+    const { firstName, lastName, email, password, userName } = req.body;
     const createUser = `INSERT INTO user_table
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                         RETURNING *`;
