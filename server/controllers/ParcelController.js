@@ -1,7 +1,9 @@
 import uuid from 'uuid';
 import joi from 'joi';
+import nodemailer from 'nodemailer';
 import schema from '../helper/validation';
 import Database from '../db/database';
+import Mailer from '../helper/mailer';
 
 const Parcel = {
 /**
@@ -93,7 +95,11 @@ const Parcel = {
     const newLocation = req.body.location;
     const { rows } = await Database.execute(changePresentLocation, [newLocation, id]);
     if (!rows) return res.status(404).send({ message: 'parcel not found' });
-    if (rows[0]) return res.status(201).send(rows[0]);
+    if (rows[0]) {
+      const receiver = await Database.execute('SELECT email from user_table where id = $1', [rows[0].owner_id]);
+      Mailer.sendMail(receiver.rows[0].email, newLocation);
+      return res.status(201).send(rows[0]);
+    }
   },
   /**
    * change the destination of the parcel
