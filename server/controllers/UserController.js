@@ -3,6 +3,7 @@ import joi from 'joi';
 import Database from '../db/database';
 import helper from '../helper/helper';
 import schema from '../helper/validation';
+import Mailer from '../helper/mailer';
 
 const User = {
   /**
@@ -125,6 +126,42 @@ const User = {
       return res.status(200).send({ message: 'user was delete successful', deleted: rows[0] });
     } catch (error) {
       return res.status(520).send({ message: 'OOPS!!! something wwent wrong!!!' });
+    }
+  },
+  /**
+   *
+   * @param {*} req email
+   * @param {*} res
+   * @returns {*} message object
+   */
+  async reqReset(req, res) {
+    const { email } = req.body;
+    try {
+      const message = `
+      <div>
+       <p>You requested for a password reset, kindly use this</p>
+       <div style="
+       display:flex;
+       flex-direction:column;
+       width:100px;
+       ">
+       <a href='#' 
+       style="background-color: green;
+        color:white; border-radius:25px;
+        padding:10px;
+        font-size:20px;
+        text-decoration:none;
+        text-align:center;
+        width:100%;
+        ">Reset</a>
+       </div>
+       <div>
+      `;
+      const subject = 'Password Reset!!!!';
+      Mailer.sendMail(email, '', subject, '', message);
+      return res.status(200).send({ message: 'Your email reset was received. To proceed check your email' });
+    } catch (error) {
+      return res.status(400).send({ message: 'OOPS something has gone wrong!!!', error });
     }
   }
 };

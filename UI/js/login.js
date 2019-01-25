@@ -32,3 +32,17 @@ function login() {
       }
     });
 }
+function resetPassword() {
+  const loginDisplay = document.getElementById('login-display');
+  loginDisplay.innerHTML = `
+  <form method="POST" action="../../api/v1/auth/reset-password">
+  <div class="box">
+      <h3 class="to-center">Account Recovery</h3>
+      <h4 class="to-center">Let find your account, Enter your email </h4>
+      <input type="text" placeholder="Email" name="email" class="full-width" id="email" required>
+        <br />
+      <button type="submit" class="button primary full-width">Reset</button>
+  </div>
+  </form>
+  `;
+}

@@ -30,8 +30,8 @@
             </div>
         </header>
 <!--The login form-->
-      <div class="form">
-        <form onsubmit="return false">
+      <div class="form" id="login-display">
+        <form onsubmit="return false" id="login-form">
             <div>
                 <img src="../img/send.png" class="icon img-center"/> 
                 <div class="to-center">
@@ -43,7 +43,7 @@
                 <br />
                 <input type="password" placeholder="Password" class="full-width"id="password" required>
                 <div id="a-forget-pswd">
-                    <a href="#">Forget Password?</a>
+                    <a href="#" onclick="resetPassword()">Forget Password?</a>
                 </div>
                 <br />
                 <button type="submit" class="button primary full-width" onclick="login()">Login</button>

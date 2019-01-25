@@ -12,12 +12,13 @@ class Senditmailer {
     });
   }
 
-  sendMail(receiver, newLocation, subject, message) {
+  sendMail(receiver, newLocation, subject, message, html) {
     const mailOptions = {
       from: process.env.gmail,
       to: receiver,
       subject,
-      text: `${message} ${newLocation}`
+      text: `${message} ${newLocation}`,
+      html
     };
     this.sender.sendMail(mailOptions);
   }

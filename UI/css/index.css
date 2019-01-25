@@ -567,3 +567,6 @@ ________________________________________________________________*/
 #a-forget-pswd{
     text-align: right
 }
+#login-form{
+    line-height: normal;
+}
