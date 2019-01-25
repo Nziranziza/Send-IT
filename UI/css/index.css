@@ -560,3 +560,10 @@ width:33.333333%
 #login-title{
     font-size:20px;
 }
+
+/* login page
+________________________________________________________________*/
+
+#a-forget-pswd{
+    text-align: right
+}
