@@ -88,7 +88,6 @@ const Parcel = {
    * @returns {object} updated parcel
    */
   async changePresentLocation(req, res) {
-    console.log(process.env);
     if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized???' });
     const changePresentLocation = 'UPDATE parcel_table SET present_location = $1 WHERE id = $2 RETURNING *';
     const id = req.params.id;
@@ -97,7 +96,9 @@ const Parcel = {
     if (!rows) return res.status(404).send({ message: 'parcel not found' });
     if (rows[0]) {
       const receiver = await Database.execute('SELECT email from user_table where id = $1', [rows[0].owner_id]);
-      Mailer.sendMail(receiver.rows[0].email, newLocation);
+      const subject = 'Your parcel was moved';
+      const message = 'The present location of your parcel is';
+      Mailer.sendMail(receiver.rows[0].email, newLocation, subject, message);
       return res.status(201).send(rows[0]);
     }
   },
@@ -140,6 +141,10 @@ const Parcel = {
     const changeStatus = 'UPDATE parcel_table SET status = $1 WHERE id = $2 RETURNING *';
     const status = prevStatus === 'Pending' ? 'Delivered' : 'Pending';
     const update = await Database.execute(changeStatus, [status, id]);
+    const receiver = await Database.execute('SELECT email from user_table where id = $1', [rows[0].owner_id]);
+    const subject = 'Your parcel was delivered successful';
+    const message = 'Your parcel was delivered successful';
+    Mailer.sendMail(receiver.rows[0].email, '', subject, message);
     return res.status(201).send(update.rows[0]);
   },
   /**
