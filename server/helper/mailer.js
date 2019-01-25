@@ -1,19 +1,20 @@
 import nodemailer from 'nodemailer';
+import 'dotenv/config';
 
 class Senditmailer {
   constructor() {
     this.sender = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'sendtheparcels@gmail.com',
-        pass: 'Bridge2@rwanda'
+        user: process.env.gmail,
+        pass: process.env.gpassword
       }
     });
   }
 
   sendMail(receiver, newLocation) {
     const mailOptions = {
-      from: 'sendtheparcels@gmail.com',
+      from: process.env.gmail,
       to: receiver,
       subject: 'Your parcel was moved',
       text: `Your parcel was moved to ${newLocation}`

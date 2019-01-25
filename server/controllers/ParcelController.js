@@ -1,6 +1,5 @@
 import uuid from 'uuid';
 import joi from 'joi';
-import nodemailer from 'nodemailer';
 import schema from '../helper/validation';
 import Database from '../db/database';
 import Mailer from '../helper/mailer';
@@ -89,6 +88,7 @@ const Parcel = {
    * @returns {object} updated parcel
    */
   async changePresentLocation(req, res) {
+    console.log(process.env);
     if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized???' });
     const changePresentLocation = 'UPDATE parcel_table SET present_location = $1 WHERE id = $2 RETURNING *';
     const id = req.params.id;
