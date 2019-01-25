@@ -2,6 +2,7 @@ import uuid from 'uuid';
 import joi from 'joi';
 import schema from '../helper/validation';
 import Database from '../db/database';
+import Mailer from '../helper/mailer';
 
 const Parcel = {
 /**
@@ -87,13 +88,18 @@ const Parcel = {
    * @returns {object} updated parcel
    */
   async changePresentLocation(req, res) {
+    console.log(process.env);
     if (req.body.role !== 'Admin') return res.status(403).send({ message: 'Not authorized???' });
     const changePresentLocation = 'UPDATE parcel_table SET present_location = $1 WHERE id = $2 RETURNING *';
     const id = req.params.id;
     const newLocation = req.body.location;
     const { rows } = await Database.execute(changePresentLocation, [newLocation, id]);
     if (!rows) return res.status(404).send({ message: 'parcel not found' });
-    if (rows[0]) return res.status(201).send(rows[0]);
+    if (rows[0]) {
+      const receiver = await Database.execute('SELECT email from user_table where id = $1', [rows[0].owner_id]);
+      Mailer.sendMail(receiver.rows[0].email, newLocation);
+      return res.status(201).send(rows[0]);
+    }
   },
   /**
    * change the destination of the parcel
